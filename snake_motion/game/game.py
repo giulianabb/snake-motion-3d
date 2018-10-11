@@ -4,20 +4,16 @@ from tick import Tick
 class Game:
     """
     Classe que representa o jogo e seu tabuleiro.
-    O tabuleiro corresponde a uma matriz 4x4x6.
+    O tabuleiro corresponde a uma matriz 6x4x4.
     """
-    # __running = False
-    # __speed = 1
-    # __board = None
-    # __snake = None
+    __board = None
 
     def __init__(self):
-        # Cria uma matriz 4x4x6 preenchida com 0s (ver manipulação na biblioteca numpy)
-        self.__board = np.zeros((4, 4, 6))
-        self.__running = False
-        self.__speed = 1
+        # Cria uma matriz 6x4x4 preenchida com 0s (ver manipulação na biblioteca numpy)
+        self.__board = np.zeros((6, 4, 4))
 
         Tick(self.on_tick)
+
 
     def on_tick(self, __tick_count):
 

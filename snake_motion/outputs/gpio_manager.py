@@ -14,27 +14,28 @@ class GPIO_Manager:
     def __init__(self):
         GPIO.setmode(GPIO.BOARD)
 
-        for pin in range(0, len(self.__serial_pins), 1):
+        for pin in range(0, 12, 1):
             GPIO.setup(pin, GPIO.OUT)
 
         GPIO.setup(self.__clock, GPIO.OUT)
         GPIO.setup(self.__clear, GPIO.OUT)
 
+
     def draw_cube(self, board):
         parts = []
-        for face in range(0, 12, 1):
-            parts.append(
-                np.array([
-                    board[face][0],
-                    board[face][1],
-                    board[face+1][0],
-                    board[face+1][1]
-                ])
-            )
+        for face in range(0, 6, 1):
+            self.draw_section(np.array([
+                board[face][0], board[face][1]
+            ]))
+            self.draw_section(np.array([
+                board[face][2], board[face][3]
+            ]))
 
+
+    def draw_section(self, section):
         for pixel in range(0, 8, 1):
             GPIO.output(self.__clock, GPIO.LOW)
-            GPIO.output(pin_serial, parts[pixel])
+            GPIO.output(self.__serial_pins[pixel], section[pixel])
             time.sleep(0.001)
             GPIO.output(self.__clock, GPIO.HIGH)
             time.sleep(0.001)
