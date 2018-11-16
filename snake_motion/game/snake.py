@@ -2,10 +2,10 @@ from enum import Enum
 from enum import IntEnum
 
 class Direction(Enum):
-    NORTH
-    EAST
-    SOUTH
-    WEST
+    NORTH = 0
+    EAST = 1
+    SOUTH = 2
+    WEST = 3
 
 class Face(IntEnum):
     FRONT = 0
@@ -27,14 +27,14 @@ class SnakePart:
         self.__col = col
         self.__face = face
 
-    def updatePosition(lin, col):
+    def update_position(lin, col):
         """
         Atualiza a posição dessa parte da cobra, e atualiza a próxima com ela
         Antes:  [3][2][1][Head][ ]
         Depois: [ ][3][2][1][Head]
         """
-        if (self.__nextPart != None)
-            self.__nextPart.updatePosition(self.__lin, self.__col)
+        if self.__nextPart != None:
+            self.__nextPart.update_position(self.__lin, self.__col)
         self.__lin = lin
         self.__col = col
 
@@ -43,23 +43,27 @@ class Snake(SnakePart):
     Classe que representa a cobra.
     """
     __size = 2
-    __direction = NORTH
+    __direction = Direction.NORTH
 
     def __init__(self):
         super().__init__(2, 2, 0)
         __nextPart = SnakePart(2, 3, 0)
 
-    def updateDirection(direction):
+    def update_direction(direction):
         """
         Atualiza a direção
         """
         self.__direction = direction
 
-    def updatePosition(lin, col):
+    def update_position():
         """
         Igual a updatePosition de SnakePart, mas precisa definir a posição da
         cabeça com base na direção atual
         """
-        if (self.__nextPart != None)
-            self.__nextPart.updatePosition(self.__lin, self.__col)
-        #TODO: Criar codigo de posicao com base na direcao
+        if self.__nextPart != None:
+            self.__nextPart.update_position(self.__lin, self.__col)
+
+        
+
+    def get_head_position():
+        return (self.__lin, self.__col, self.__face)
