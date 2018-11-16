@@ -7,13 +7,14 @@ class Game:
     O tabuleiro corresponde a uma matriz 6x4x4.
     """
     __board = None
+    __tick = None
+    __snake = None
 
     def __init__(self):
         # Cria uma matriz 6x4x4 preenchida com 0s (ver manipulação na biblioteca numpy)
         self.__board = np.zeros((6, 4, 4))
-
-        Tick(self.on_tick)
-
+        self.__tick = Tick(self.on_tick)
+        self.__snake = Snake()
 
     def on_tick(self, __tick_count):
 
