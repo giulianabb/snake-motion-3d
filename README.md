@@ -11,7 +11,7 @@ Instalar
 
 Criar um ambiente virtual na pasta do projeto:
 ```
-virtualenv env
+virtualenv env --python=python3.6
 ```
 
 Acessar o ambiente virtual (Windows):
