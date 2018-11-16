@@ -3,7 +3,7 @@ Snake Motion 3D
 
 ## Pré-requisitos
 Instalar 
-* Python 3.7.0
+* Python 3.6.0
 * Pip 18.0
 * virtualenv 16.0.0
 
