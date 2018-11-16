@@ -27,22 +27,25 @@ class SnakePart:
         self.__col = col
         self.__face = face
 
-    def update_position(lin, col):
+    def update_position(lin, col, face, add_tail):
         """
         Atualiza a posição dessa parte da cobra, e atualiza a próxima com ela
         Antes:  [3][2][1][Head][ ]
         Depois: [ ][3][2][1][Head]
         """
         if self.__nextPart != None:
-            self.__nextPart.update_position(self.__lin, self.__col)
+            self.__nextPart.update_position(self.__lin, self.__col, self.__face, add_tail)
+        elif add_tail == True:
+            self.__nextPart = SnakePart(self.__lin, self.__col, self.__face)
+        # The update itself
         self.__lin = lin
         self.__col = col
+        self.__face = face
 
 class Snake(SnakePart):
     """
     Classe que representa a cobra.
     """
-    __size = 2
     __direction = Direction.NORTH
 
     def __init__(self):
@@ -55,15 +58,15 @@ class Snake(SnakePart):
         """
         self.__direction = direction
 
-    def update_position():
+    def update_position(add_tail):
         """
         Igual a updatePosition de SnakePart, mas precisa definir a posição da
         cabeça com base na direção atual
         """
         if self.__nextPart != None:
-            self.__nextPart.update_position(self.__lin, self.__col)
-
-        
+            self.__nextPart.update_position(self.__lin, self.__col, self.__face, add_tail)
+        else:
+            
 
     def get_head_position():
         return (self.__lin, self.__col, self.__face)
