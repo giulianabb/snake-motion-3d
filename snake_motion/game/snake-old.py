@@ -72,75 +72,110 @@ class Snake(SnakePart):
 
 
     def move_to_upper_cube():
-        if self.__face < Face.LEFT:
-            self.__face = (self.__face + 1) % Face.LEFT
+
+        # Column keeps adding and rotating
+        if self.__face < Face.DOWN:
+            self.__face += 1
             self.__col = 0
-        else:
-            self.__face = Face.FRONT if self.__face == Face.LEFT else Face.BACK
+        elif self.__face == Face.DOWN:
+            self.__face = Face.FRONT
+            self.__col = 0
+
+        # Column swaps with line, and now line will add
+        elif self.__face == Face.LEFT:
+            self.__face = Face.FRONT
+            self.__direction = Direction.WEST
+            self.__col = self.__lin
+            self.__lin = 0
+        elif self.__face == Face.RIGHT:
+            self.__face = Face.BACK
             self.__direction = Direction.WEST
             self.__col = self.__lin
             self.__lin = 0
 
 
     def move_to_lower_cube():
-        if self.__face < Face.LEFT:
-            self.__face = (self.__face - 1) % Face.LEFT
-            self.__col = 3
-        else:
-            self.__face = Face.BACK if self.__face == Face.LEFT else Face.FRONT
+
+        # Column swaps with line, and now line will subtract
+        if self.__face == Face.RIGHT:
+            self.__face = Face.FRONT
+            self.__direction = Face.EAST
+            self.__col = 3 - self.__lin
+            self.__lin = 3
+        elif self.__face == Face.LEFT:
+            self.__face = Face.BACK
             self.__direction = Face.EAST
             self.__col = 3 - self.__lin
             self.__lin = 3
 
+        # Column keeps subtracting and rotating
+        elif self.__face == Face.FRONT:
+            self.__face = Face.DOWN
+            self.__col = 3
+        elif self.__face > Face.FRONT:
+            self.__face -= 1
+            self.__col = 3
+
 
     def move_to_left_cube():
-        if self.__face < Face.LEFT:
-            self.__face = Face.LEFT
-            self.__direction = (2 - self.__face) % Face.LEFT
-            if self.__face == Face.FRONT:
-                self.__lin = self.__col
-                self.__col = 3
-            elif self.__face == Face.TOP:
-                self.__col = 3 - self.__col
-                self.__lin = 3
-            elif self.__face == Face.BACK:
-                self.__lin = 3 - self.__col
-                self.__col = 0
-            elif self.__face == Face.DOWN:
-                self.__lin = 0
 
+        if self.__face == Face.FRONT:
+            self.__face = Face.LEFT
+            self.__direction = Direction.SOUTH
+            self.__lin = self.__col
+            self.__col = 3
+        elif self.__face == Face.TOP:
+            self.__face = Face.LEFT
+            # self.__direction = Direction.EAST (redundant)
+            self.__col = 3 - self.__col
+            self.__lin = 3
+        elif self.__face == Face.BACK:
+            self.__face = Face.LEFT
+            self.__direction = Direction.NORTH
+            self.__lin = 3 - self.__col
+            self.__col = 0
+        elif self.__face == Face.DOWN:
+            self.__face = Face.LEFT
+            self.__direction = Direction.WEST
+            self.__lin = 0
         elif self.__face == Face.LEFT:
             self.__face = Face.DOWN
             self.__direction = Direction.WEST
             self.__lin = 0
         elif self.__face == Face.RIGHT:
             self.__face = Face.TOP
+            # self.__direction = Direction.EAST (redundant)
             self.__col = 3 - self.__col
             self.__lin = 3
 
-
     def move_to_right_cube():
-        if self.__face < Face.LEFT:
-            self.__face = Face.RIGHT
-            self.__direction = (self.__face - 2) % Face.LEFT
-            if self.__face == Face.FRONT:
-                self.__lin = 3 - self.__col
-                self.__col = 3
-            elif self.__face == Face.TOP:
-                self.__col = 3 - self.__col
-                self.__lin = 0
-            elif self.__face == Face.BACK:
-                self.__lin = self.__col
-                self.__col = 0
-            elif self.__face == Face.DOWN:
-                self.__lin = 3
 
+        if self.__face == Face.FRONT:
+            self.__face = Face.RIGHT
+            self.__direction = Direction.SOUTH
+            self.__lin = 3 - self.__col
+            self.__col = 3
+        elif self.__face == Face.TOP:
+            self.__face = Face.RIGHT
+            # self.__direction = Direction.WEST (redundant)
+            self.__col = 3 - self.__col
+            self.__lin = 0
+        elif self.__face == Face.BACK:
+            self.__face = Face.RIGHT
+            self.__direction = Direction.NORTH
+            self.__lin = self.__col
+            self.__col = 0
+        elif self.__face == Face.DOWN:
+            self.__face = Face.RIGHT
+            self.__direction = Direction.EAST
+            self.__lin = 3
         elif self.__face == Face.RIGHT:
             self.__face = Face.DOWN
             self.__direction = Direction.EAST
             self.__lin = 3
         elif self.__face == Face.LEFT:
             self.__face = Face.TOP
+            # self.__direction = Direction.WEST (redundant)
             self.__col = 3 - self.__col
             self.__lin = 0
 
