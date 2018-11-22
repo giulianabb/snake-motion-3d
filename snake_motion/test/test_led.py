@@ -40,9 +40,9 @@ class Shifter():
         for i in range(24):
             bitwise = 0x800000 >> i
             bit = bitwise & value
-            if(bit == 0):
-                gpio.output(self.inputB, gpio.LOW)
-            else:
+            #if(bit == 0):
+            #    gpio.output(self.inputB, gpio.LOW)
+            #else:
                 gpio.output(self.inputB, gpio.HIGH)
             self.tick()
 
