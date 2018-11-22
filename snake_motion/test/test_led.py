@@ -32,17 +32,21 @@ class Shifter():
 
     def tick(self):
         gpio.output(self.clock, gpio.HIGH)
+        print("Clock HIGH")
         sleep(self.pause)
         gpio.output(self.clock, gpio.LOW)
+        print("Clock LOW")
         sleep(self.pause)
 
     def setValue(self, value):
         for i in range(24):
             bitwise = 0x800000 >> i
             bit = bitwise & value
-            if(1 == 0):
+            if(bit == 0):
+                print("Output LOW")
                 gpio.output(self.inputB, gpio.LOW)
             else:
+                print("Output HIGH")
                 gpio.output(self.inputB, gpio.HIGH)
             self.tick()
 
@@ -74,14 +78,17 @@ def main():
         try:
             # shifter.clear()
             # shifter.setValue(1)
-            # sleep(1)
+            sleep(1)
             print("Realizando clear")
             shifter.clear()
-            print("Setando valor")
+            print("Set value start")
             shifter.setValue(0x0AAAAAA)
+            print("Set value finish")
             sleep(pause)
             shifter.clear()
+            print("Set value start")
             shifter.setValue(0x0555555)
+            print("Set value finish")
             sleep(pause)
         except KeyboardInterrupt:
             gpio.cleanup()
