@@ -28,7 +28,7 @@ class Shifter():
         self.clock = clock
         self.clearPin = clearPin
         self.setupBoard()
-        self.pause = 0
+        self.pause = 500
 
     def tick(self):
         gpio.output(Shifter.clock, gpio.HIGH)
