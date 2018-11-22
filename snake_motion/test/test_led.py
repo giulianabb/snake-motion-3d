@@ -44,11 +44,11 @@ class Shifter():
                 gpio.output(self.inputB, gpio.LOW)
             else:
                 gpio.output(self.inputB, gpio.HIGH)
-            self.tick(self)
+            self.tick()
 
     def clear(self):
         gpio.output(self.clearPin, gpio.LOW)
-        self.tick(self)
+        self.tick()
         gpio.output(self.clearPin, gpio.HIGH)
 
     def setupBoard(self):
