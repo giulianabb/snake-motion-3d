@@ -31,9 +31,9 @@ class Shifter():
         self.pause = 500
 
     def tick(self):
-        gpio.output(Shifter.clock, gpio.HIGH)
+        gpio.output(self.clock, gpio.HIGH)
         sleep(self.pause)
-        gpio.output(Shifter.clock, gpio.LOW)
+        gpio.output(self.clock, gpio.LOW)
         sleep(self.pause)
 
     def setValue(self, value):
@@ -41,28 +41,28 @@ class Shifter():
             bitwise = 0x800000 >> i
             bit = bitwise & value
             if(bit == 0):
-                gpio.output(Shifter.inputB, gpio.LOW)
+                gpio.output(self.inputB, gpio.LOW)
             else:
-                gpio.output(Shifter.inputB, gpio.HIGH)
-            Shifter.tick(self)
+                gpio.output(self.inputB, gpio.HIGH)
+            self.tick(self)
 
     def clear(self):
-        gpio.output(Shifter.clearPin, gpio.LOW)
-        Shifter.tick(self)
-        gpio.output(Shifter.clearPin, gpio.HIGH)
+        gpio.output(self.clearPin, gpio.LOW)
+        self.tick(self)
+        gpio.output(self.clearPin, gpio.HIGH)
 
     def setupBoard(self):
-        # gpio.setup(Shifter.inputA, gpio.OUT)
-        # gpio.output(Shifter.inputA, gpio.HIGH)
+        # gpio.setup(self.inputA, gpio.OUT)
+        # gpio.output(self.inputA, gpio.HIGH)
 
-        gpio.setup(Shifter.inputB, gpio.OUT)
-        gpio.output(Shifter.inputB, gpio.LOW)
+        gpio.setup(self.inputB, gpio.OUT)
+        gpio.output(self.inputB, gpio.LOW)
 
-        gpio.setup(Shifter.clock, gpio.OUT)
-        gpio.output(Shifter.clock, gpio.LOW)
+        gpio.setup(self.clock, gpio.OUT)
+        gpio.output(self.clock, gpio.LOW)
 
-        gpio.setup(Shifter.clearPin, gpio.OUT)
-        gpio.output(Shifter.clearPin, gpio.HIGH)
+        gpio.setup(self.clearPin, gpio.OUT)
+        gpio.output(self.clearPin, gpio.HIGH)
 
 
 def main():
