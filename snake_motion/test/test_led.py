@@ -7,89 +7,89 @@ class Shifter():
         Classe para setar o valor de um shift register.
         Adaptado de:
             https://www.instructables.com/id/Using-a-shift-register-with-Raspberry-Pi/
-
-        Vcc: GPIO pin 2
-        Ground: GPIO pin 6
-        Clock: GPIO 7
-        NOT Clear: GPIO 11
-        Input A: pin 13
-        Input B: pin 15
-
     """
-    # inputA = None  # default: 15
-    inputB = None  # default: 26
-    clock = None  # default: 23
-    clearPin = None  # default: 24
+    
+    inputs = [7, 11, 13, 15, 19, 21, 23, 29, 31, 33, 35, 37]
+    clocks = [12, 16, 18, 22]
+    clears = [24, 26, 32, 36]
 
-    def __init__(self, inputA=15, inputB=26,
-                 clock=23, clearPin=24):
-        # self.inputA = inputA
-        self.inputB = inputB
-        self.clock = clock
-        self.clearPin = clearPin
+    def __init__(self):
         self.setupBoard()
-        self.pause = 1
+        self.pause = 0.5
 
-    def tick(self):
-        gpio.output(self.clock, gpio.HIGH)
-        print("Clock HIGH")
+    def tick(self, clock):
+        gpio.output(clock, gpio.HIGH)
         sleep(self.pause)
-        gpio.output(self.clock, gpio.LOW)
-        print("Clock LOW")
+        gpio.output(clock, gpio.LOW)
         sleep(self.pause)
 
-    def setValue(self, value):
+    def setValue(self, value, clock, input):
         for i in range(24):
             bitwise = 0x800000 >> i
             bit = bitwise & value
             if(bit == 0):
                 print("Output LOW")
-                gpio.output(self.inputB, gpio.LOW)
+                gpio.output(input, gpio.LOW)
             else:
                 print("Output HIGH")
-                gpio.output(self.inputB, gpio.HIGH)
-            self.tick()
+                gpio.output(input, gpio.HIGH)
+            self.tick(clock)
 
     def clear(self):
-        gpio.output(self.clearPin, gpio.LOW)
-        self.tick()
-        gpio.output(self.clearPin, gpio.HIGH)
+        for clear in self.clears:
+            gpio.output(clear, gpio.LOW)
+        for clock in self.clocks:
+            self.tick(clock)
+        for clear in self.clears:
+            gpio.output(clear, gpio.HIGH)
 
     def setupBoard(self):
-        # gpio.setup(self.inputA, gpio.OUT)
-        # gpio.output(self.inputA, gpio.HIGH)
+        for input in self.inputs:
+            gpio.setup(input, gpio.OUT)
+            gpio.output(input, gpio.LOW)
+        
+        for clock in self.clocks:
+            gpio.setup(clock, gpio.OUT)
+            gpio.output(clock, gpio.LOW)
 
-        gpio.setup(self.inputB, gpio.OUT)
-        gpio.output(self.inputB, gpio.LOW)
-
-        gpio.setup(self.clock, gpio.OUT)
-        gpio.output(self.clock, gpio.LOW)
-
-        gpio.setup(self.clearPin, gpio.OUT)
-        gpio.output(self.clearPin, gpio.HIGH)
-
+        for clear in self.clears:
+            gpio.setup(clear, gpio.OUT)
+            gpio.output(clear, gpio.HIGH)
 
 def main():
-    pause = 0.5
     gpio.setmode(gpio.BOARD)
     shifter = Shifter()
     running = True
     while running:
         try:
-            # shifter.clear()
-            # shifter.setValue(1)
-            sleep(1)
-            print("Realizando clear")
             shifter.clear()
-            print("Set value start")
-            shifter.setValue(0x0AAAAAA)
-            print("Set value finish")
-            sleep(pause)
+            shifter.setValue(0x0AAAAAA, self.inputs[0], self.clocks[0])
+            shifter.setValue(0x0AAAAAA, self.inputs[1], self.clocks[0])
+            shifter.setValue(0x0AAAAAA, self.inputs[2], self.clocks[0])
+            shifter.setValue(0x0AAAAAA, self.inputs[3], self.clocks[0])
+            shifter.setValue(0x0AAAAAA, self.inputs[4], self.clocks[1])
+            shifter.setValue(0x0AAAAAA, self.inputs[5], self.clocks[1])
+            shifter.setValue(0x0AAAAAA, self.inputs[6], self.clocks[1])
+            shifter.setValue(0x0AAAAAA, self.inputs[7], self.clocks[1])
+            shifter.setValue(0x0AAAAAA, self.inputs[8], self.clocks[2])
+            shifter.setValue(0x0AAAAAA, self.inputs[9], self.clocks[2])
+            shifter.setValue(0x0AAAAAA, self.inputs[10], self.clocks[2])
+            shifter.setValue(0x0AAAAAA, self.inputs[11], self.clocks[2])
+            sleep(0.5)
             shifter.clear()
-            print("Set value start")
-            shifter.setValue(0x0555555)
-            print("Set value finish")
-            sleep(pause)
+            shifter.setValue(0x0555555, self.inputs[0], self.clocks[0])
+            shifter.setValue(0x0555555, self.inputs[1], self.clocks[0])
+            shifter.setValue(0x0555555, self.inputs[2], self.clocks[0])
+            shifter.setValue(0x0555555, self.inputs[3], self.clocks[0])
+            shifter.setValue(0x0555555, self.inputs[4], self.clocks[1])
+            shifter.setValue(0x0555555, self.inputs[5], self.clocks[1])
+            shifter.setValue(0x0555555, self.inputs[6], self.clocks[1])
+            shifter.setValue(0x0555555, self.inputs[7], self.clocks[1])
+            shifter.setValue(0x0555555, self.inputs[8], self.clocks[2])
+            shifter.setValue(0x0555555, self.inputs[9], self.clocks[2])
+            shifter.setValue(0x0555555, self.inputs[10], self.clocks[2])
+            shifter.setValue(0x0555555, self.inputs[11], self.clocks[2])
+            sleep(0.5)
         except KeyboardInterrupt:
             gpio.cleanup()
             running = False
