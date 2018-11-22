@@ -82,6 +82,7 @@ def main():
             shifter.setValue(0x0555555)
             sleep(pause)
         except KeyboardInterrupt:
+            gpio.cleanup()
             running = False
 
 
