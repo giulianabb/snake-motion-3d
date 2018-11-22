@@ -28,7 +28,7 @@ class Shifter():
         self.clock = clock
         self.clearPin = clearPin
         self.setupBoard()
-        self.pause = 500
+        self.pause = 1
 
     def tick(self):
         gpio.output(self.clock, gpio.HIGH)
@@ -75,7 +75,9 @@ def main():
             # shifter.clear()
             # shifter.setValue(1)
             # sleep(1)
+            print("Realizando clear")
             shifter.clear()
+            print("Setando valor")
             shifter.setValue(0x0AAAAAA)
             sleep(pause)
             shifter.clear()
