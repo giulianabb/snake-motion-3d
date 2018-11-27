@@ -9,7 +9,46 @@ class Shifter():
         Adaptado de:
             https://www.instructables.com/id/Using-a-shift-register-with-Raspberry-Pi/
     """
-
+    
+    view1 = [[0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0]]
+    
+    view2 = [[0, 0, 0, 0, 0, 1, 1, 0],
+             [0, 0, 0, 0, 0, 1, 1, 0],
+             [0, 0, 0, 0, 0, 1, 1, 0],
+             [0, 0, 0, 0, 0, 1, 1, 0],
+             [0, 0, 0, 0, 0, 1, 1, 0],
+             [0, 0, 0, 0, 0, 1, 1, 0],
+             [0, 0, 0, 0, 0, 1, 1, 0],
+             [0, 0, 0, 0, 0, 1, 1, 0],
+             [0, 0, 0, 0, 0, 1, 1, 0],
+             [0, 0, 0, 0, 0, 1, 1, 0],
+             [0, 0, 0, 0, 0, 1, 1, 0],
+             [0, 0, 0, 0, 0, 1, 1, 0]]
+    
+    view3 = [[1, 1, 1, 1, 1, 0, 0, 1],
+             [1, 1, 1, 1, 1, 0, 0, 1], 
+             [1, 1, 1, 1, 1, 0, 0, 1],
+             [1, 1, 1, 1, 1, 0, 0, 1],
+             [1, 1, 1, 1, 1, 0, 0, 1],
+             [1, 1, 1, 1, 1, 0, 0, 1],
+             [1, 1, 1, 1, 1, 0, 0, 1],
+             [1, 1, 1, 1, 1, 0, 0, 1],
+             [1, 1, 1, 1, 1, 0, 0, 1],
+             [1, 1, 1, 1, 1, 0, 0, 1],
+             [1, 1, 1, 1, 1, 0, 0, 1],
+             [1, 1, 1, 1, 1, 0, 0, 1]]
+    
     inputs = [7, 11, 13, 15, 19, 21, 23, 29, 31, 33, 35, 37]
     clocks = [12, 16, 18, 22]
     clears = [24, 26, 32, 36]
@@ -20,17 +59,15 @@ class Shifter():
     def tick(self):
         for clock in self.clocks:
             gpio.output(clock, gpio.HIGH)
-        sleep(0.5)
+        sleep(0.005)
         for clock in self.clocks:
             gpio.output(clock, gpio.LOW)
-        sleep(0.5)
+        sleep(0.005)
 
-    def setValues(self, value):
-        for i in range(24):
-            for input in self.inputs:
-                bitwise = 0x800000 >> i
-                bit = bitwise & value
-                if(bit == 0):
+    def setValues(self, view):
+        for face in view:
+            for index, input in enumerate(self.inputs):
+                if(face[index] == 0):
                     print("Output LOW")
                     gpio.output(input, gpio.LOW)
                 else:
@@ -64,11 +101,17 @@ def main():
     shifter = Shifter()
     running = True
     while running:
-        try:
+        try:            
+            shifter.setValues(shifter.view1)
             sleep(0.5)
-            shifter.setValues(0x0AAAAAA)
             shifter.clear()
-            shifter.setValues(0x0555555)
+            
+            shifter.setValues(shifter.view2)
+            sleep(0.5)
+            shifter.clear()
+            
+            shifter.setValues(shifter.view3)
+            sleep(0.5)
             shifter.clear()
         except KeyboardInterrupt:
             gpio.cleanup()
