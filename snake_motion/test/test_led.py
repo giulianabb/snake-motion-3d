@@ -65,8 +65,8 @@ class Shifter():
         sleep(0.005)
 
     def setValues(self, view):
-        for face in view:
-            for index, input in enumerate(self.inputs):
+        for index, face in enumerate(view):
+            for input in self.inputs:
                 if(face[index] == 0):
                     print("Output LOW")
                     gpio.output(input, gpio.LOW)
