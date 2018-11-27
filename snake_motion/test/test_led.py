@@ -9,32 +9,34 @@ class Shifter():
         Adaptado de:
             https://www.instructables.com/id/Using-a-shift-register-with-Raspberry-Pi/
     """
-    
+
     inputs = [11, 13, 15, 19, 21, 22, 23, 24, 29, 31, 33, 35]
     clocks = [37, 12, 18, 16]
     clears = [ 7, 26, 32, 36]
 
     def __init__(self):
         self.setupBoard()
-        self.pause = 0.5
 
     def tick(self, clock):
-        gpio.output(clock, gpio.HIGH)
-        sleep(self.pause)
-        gpio.output(clock, gpio.LOW)
-        sleep(self.pause)
+        for clock in self.clocks:
+            gpio.output(clock, gpio.HIGH)
+        sleep(0.5)
+        for clock in self.clocks:
+            gpio.output(clock, gpio.LOW)
+        sleep(0.5)
 
-    def setValue(self, value, clock, input):
+    def setValues(self, value):
         for i in range(24):
-            bitwise = 0x800000 >> i
-            bit = bitwise & value
-            if(bit == 0):
-                print("Output LOW")
-                gpio.output(input, gpio.LOW)
-            else:
-                print("Output HIGH")
-                gpio.output(input, gpio.HIGH)
-            self.tick(clock)
+            for input in self.inputs:
+                bitwise = 0x800000 >> i
+                bit = bitwise & value
+                if(bit == 0):
+                    print("Output LOW")
+                    gpio.output(input, gpio.LOW)
+                else:
+                    print("Output HIGH")
+                    gpio.output(input, gpio.HIGH)
+            self.tick()
 
     def clear(self):
         for clear in self.clears:
@@ -48,7 +50,7 @@ class Shifter():
         for input in self.inputs:
             gpio.setup(input, gpio.OUT)
             gpio.output(input, gpio.LOW)
-        
+
         for clock in self.clocks:
             gpio.setup(clock, gpio.OUT)
             gpio.output(clock, gpio.LOW)
@@ -63,34 +65,11 @@ def main():
     running = True
     while running:
         try:
-            shifter.clear()
-            shifter.setValue(0x0AAAAAA, shifter.inputs[0], shifter.clocks[0])
-            #shifter.setValue(0x0AAAAAA, shifter.inputs[1], shifter.clocks[0])
-            #shifter.setValue(0x0AAAAAA, shifter.inputs[2], shifter.clocks[0])
-            #shifter.setValue(0x0AAAAAA, shifter.inputs[3], shifter.clocks[1])
-            #shifter.setValue(0x0AAAAAA, shifter.inputs[4], shifter.clocks[1])
-            #shifter.setValue(0x0AAAAAA, shifter.inputs[5], shifter.clocks[1])
-            #shifter.setValue(0x0AAAAAA, shifter.inputs[6], shifter.clocks[2])
-            #shifter.setValue(0x0AAAAAA, shifter.inputs[7], shifter.clocks[2])
-            #shifter.setValue(0x0AAAAAA, shifter.inputs[8], shifter.clocks[2])
-            #shifter.setValue(0x0AAAAAA, shifter.inputs[9], shifter.clocks[3])
-            #shifter.setValue(0x0AAAAAA, shifter.inputs[10], shifter.clocks[3])
-            #shifter.setValue(0x0AAAAAA, shifter.inputs[11], shifter.clocks[3])
             sleep(0.5)
+            shifter.setValues(0x0AAAAAA)
             shifter.clear()
-            shifter.setValue(0x0555555, shifter.inputs[0], shifter.clocks[0])
-            #shifter.setValue(0x0555555, shifter.inputs[1], shifter.clocks[0])
-            #shifter.setValue(0x0555555, shifter.inputs[2], shifter.clocks[0])
-            #shifter.setValue(0x0555555, shifter.inputs[3], shifter.clocks[1])
-            #shifter.setValue(0x0555555, shifter.inputs[4], shifter.clocks[1])
-            #shifter.setValue(0x0555555, shifter.inputs[5], shifter.clocks[1])
-            #shifter.setValue(0x0555555, shifter.inputs[6], shifter.clocks[2])
-            #shifter.setValue(0x0555555, shifter.inputs[7], shifter.clocks[2])
-            #shifter.setValue(0x0555555, shifter.inputs[8], shifter.clocks[2])
-            #shifter.setValue(0x0555555, shifter.inputs[9], shifter.clocks[3])
-            #shifter.setValue(0x0555555, shifter.inputs[10], shifter.clocks[3])
-            #shifter.setValue(0x0555555, shifter.inputs[11], shifter.clocks[3])
-            sleep(0.5)
+            shifter.setValues(0x0555555)
+            shifter.clear()
         except KeyboardInterrupt:
             gpio.cleanup()
             running = False
