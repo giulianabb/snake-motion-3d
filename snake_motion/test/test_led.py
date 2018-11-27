@@ -11,7 +11,7 @@ class Shifter():
     """
     
     inputs = [11, 13, 15, 19, 21, 22, 23, 24, 29, 31, 33, 35]
-    clocks = [16, 12, 18, 37]
+    clocks = [37, 12, 18, 16]
     clears = [ 7, 26, 32, 36]
 
     def __init__(self):
