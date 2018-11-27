@@ -17,7 +17,7 @@ class Shifter():
     def __init__(self):
         self.setupBoard()
 
-    def tick(self, clock):
+    def tick(self):
         for clock in self.clocks:
             gpio.output(clock, gpio.HIGH)
         sleep(0.5)
