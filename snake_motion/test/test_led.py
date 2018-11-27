@@ -10,9 +10,9 @@ class Shifter():
             https://www.instructables.com/id/Using-a-shift-register-with-Raspberry-Pi/
     """
 
-    inputs = [11, 13, 15, 19, 21, 22, 23, 24, 29, 31, 33, 35]
-    clocks = [37, 12, 18, 16]
-    clears = [ 7, 26, 32, 36]
+    inputs = [7, 11, 13, 15, 19, 21, 23, 29, 31, 33, 35, 37]
+    clocks = [12, 16, 18, 22]
+    clears = [24, 26, 32, 36]
 
     def __init__(self):
         self.setupBoard()
@@ -42,7 +42,7 @@ class Shifter():
         for clear in self.clears:
             gpio.output(clear, gpio.LOW)
         for clock in self.clocks:
-            self.tick(clock)
+            self.tick()
         for clear in self.clears:
             gpio.output(clear, gpio.HIGH)
 
