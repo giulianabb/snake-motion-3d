@@ -94,17 +94,17 @@ while True:
 	y = -sin(angZ) * sin(angY) * sin(angX) + cos(angZ) * cos(angX)
 	z = cos(angY) * sin(angX)
 
-	if y >= lim
+	if y >= lim:
 	    print ("TOP")
-	elif y <= -lim
+	elif y <= -lim:
 	    print ("DOWN")
-	elif x >= lim
+	elif x >= lim:
 	    print ("RIGHT")
-	elif x <= -lim
+	elif x <= -lim:
 	    print ("LEFT")
-	elif z >= lim
+	elif z >= lim:
 	    print ("FRONT")
-	elif z <= -lim
+	elif z <= -lim:
 	    print ("BACK")
 
 	sleep(1)
