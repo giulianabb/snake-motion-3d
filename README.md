@@ -24,3 +24,4 @@ Baixar os requisitos do projeto através do pip:
 pip install -r requirements.txt
 ```
 
+Commit que está funcionando: d196319 (branch: new-test)
