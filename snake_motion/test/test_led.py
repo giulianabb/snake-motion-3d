@@ -59,10 +59,10 @@ class Shifter():
     def tick(self):
         for clock in self.clocks:
             gpio.output(clock, gpio.HIGH)
-        sleep(0.001)
+        sleep(0.0001)
         for clock in self.clocks:
             gpio.output(clock, gpio.LOW)
-        sleep(0.001)
+        sleep(0.0001)
 
     def setValues(self, view):
         for i in range(8):
