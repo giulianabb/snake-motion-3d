@@ -1,0 +1,12 @@
+cd usr
+cd bin
+cd snake-motion-3d
+cd snake_motion
+cd test
+python3 test_led.py
+git pull
+git status
+git add .
+git commit -m "Commit"
+git push
+sudo apt-get install matchbox-keyboard
