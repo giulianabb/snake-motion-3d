@@ -101,18 +101,27 @@ def main():
     shifter = Shifter()
     running = True
     while running:
-        try:            
+        try: 
             shifter.setValues(shifter.view1)
-            sleep(0.7)
+            sleep(1.0)
             shifter.clear()
             
             shifter.setValues(shifter.view2)
-            sleep(0.7)
+            sleep(0.3)
             shifter.clear()
             
             shifter.setValues(shifter.view3)
-            sleep(0.7)
+            sleep(0.3)
             shifter.clear()
+            
+            shifter.setValues(shifter.view1)
+            sleep(0.3)
+            shifter.clear()
+            
+            shifter.setValues(shifter.view3)
+            sleep(0.3)
+            shifter.clear()
+            
         except KeyboardInterrupt:
             shifter.clear()
             gpio.cleanup()
