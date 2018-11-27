@@ -10,4 +10,5 @@ git checkout .
 git add .
 git commit -m "Commit"
 git push
+nano commands.txt
 sudo apt-get install matchbox-keyboard
