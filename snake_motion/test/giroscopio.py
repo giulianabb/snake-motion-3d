@@ -79,11 +79,6 @@ while True:
     gyro_y = read_raw_data(GYRO_YOUT_H, bus)
     gyro_z = read_raw_data(GYRO_ZOUT_H, bus)
 
-    print("Giroscópio:")
-    print("x: %s" % gyro_x)
-    print("y: %s" % gyro_y)
-    print("z: %s" % gyro_z)
-
     # Full scale range +/- 250 degree/C as per sensitivity scale factor
     Ax = acc_x / 16384.0
     Ay = acc_y / 16384.0
@@ -92,6 +87,11 @@ while True:
     Gx = gyro_x / 131.0
     Gy = gyro_y / 131.0
     Gz = gyro_z / 131.0
+
+    print("Giroscópio:")
+    print("x: %s" % Gx)
+    print("y: %s" % Gy)
+    print("z: %s" % Gz)
 
     angX += Gx * deltaTime
     angY += Gy * deltaTime
