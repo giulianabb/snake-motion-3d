@@ -12,7 +12,7 @@ class Tick:
         return ms
 
     def __init__(self, on_tick_callback):
-        self.__onTick = on_tick_callback
+        self.__on_tick = on_tick_callback
         last_time = datetime.now()
         while True:
             if self.elapsed_ms(last_time) > self.__ms_per_tick:
