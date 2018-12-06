@@ -28,10 +28,35 @@ class Game:
 
     def __init__(self):
         # Cria uma matriz 6x4x4 preenchida com 0s (ver manipulação na biblioteca numpy)
-        self.__board = np.zeros((6, 4, 4))
-        self.__tick = Tick(self.on_tick)
+        self.__board = [[[0, 0, 0, 0],
+                         [0, 0, 0, 0],
+                         [0, 0, 0, 0],
+                         [0, 0, 0, 0]],
+                        [[0, 0, 0, 0],
+                         [0, 0, 0, 0],
+                         [0, 0, 0, 0],
+                         [0, 0, 0, 0]],
+                        [[0, 0, 0, 0],
+                         [0, 0, 0, 0],
+                         [0, 0, 0, 0],
+                         [0, 0, 0, 0]],
+                        [[0, 0, 0, 0],
+                         [0, 0, 0, 0],
+                         [0, 0, 0, 0],
+                         [0, 0, 0, 0]],
+                        [[0, 0, 0, 0],
+                         [0, 0, 0, 0],
+                         [0, 0, 0, 0],
+                         [0, 0, 0, 0]],
+                        [[0, 0, 0, 0],
+                         [0, 0, 0, 0],
+                         [0, 0, 0, 0],
+                         [0, 0, 0, 0]]]
+
+        self.__gpio_manager = GPIO_Manager()
         self.__snake = Snake()
         self.__fruit = Fruit()
+        self.__tick = Tick(self.on_tick)
 
     def on_tick(self, tick_count):
 
@@ -46,6 +71,12 @@ class Game:
                 self.__add_tail = False
             # Updates fruit position and snake velocity
             self.update_fruit()
+        elif tick_count == 1:
+            snake_head = self.__snake.get_head_position()
+            self.__board[snake_head[0]][snake_head[1]][snake_head[2]] = 1
+            gpio_manager.setFaces(faces)
+        elif tick_count == 4:
+            gpio_manager.clear()
 
     def update_fruit():
         snake_head = self.__snake.get_head_position()
@@ -56,44 +87,14 @@ class Game:
 
 
 def main():
-    gpio_manager = GPIO_Manager()
+    game = Game()
     running = True
-
-    faces = [[[1, 0, 0, 0],
-              [1, 0, 0, 0],
-              [1, 0, 0, 0],
-              [1, 1, 1, 1]],
-             [[1, 1, 1, 1],
-              [1, 0, 0, 0],
-              [1, 0, 0, 0],
-              [1, 1, 1, 1]],
-             [[1, 1, 1, 1],
-              [1, 0, 0, 1],
-              [1, 0, 0, 1],
-              [1, 1, 1, 1]],
-             [[1, 1, 1, 1],
-              [1, 0, 1, 1],
-              [1, 0, 1, 1],
-              [1, 1, 1, 1]],
-             [[0, 1, 1, 0],
-              [1, 0, 0, 1],
-              [1, 0, 0, 0],
-              [1, 1, 1, 1]],
-             [[0, 1, 1, 0],
-              [1, 0, 0, 1],
-              [1, 0, 0, 1],
-              [0, 1, 1, 0]]]
-
     while running:
         try:
-            gpio_manager.setFaces(faces)
-            sleep(1.0)
-            gpio_manager.clear()
-
+            print("running")
         except KeyboardInterrupt:
             gpio_manager.clear()
             running = False
-
 
 if __name__ == "__main__":
     main()
