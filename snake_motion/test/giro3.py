@@ -122,13 +122,6 @@ def write(ch):
 def clear():
   cmd(0x01)
 
-def Print(Str):
-  l=0;
-  l=len(Str)
-  for i in range(l):
-    write(ord(Str[i]))
-
-
 def setCursor(x,y):
   if y == 0:
     n=128+x
@@ -153,16 +146,16 @@ def display(x,y,z):
   y= "%d" %y
   z= "%d" %z
   setCursor(0,0)
-  Print("X     Y     Z")
+  print("X     Y     Z")
   setCursor(0,1)
-  Print(str(x))
-  Print("   ")
+  print(str(x))
+  print("   ")
   setCursor(6,1)
-  Print(str(y))
-  Print("   ")
+  print(str(y))
+  print("   ")
   setCursor(12,1)
-  Print(str(z))
-  Print("   ")
+  print(str(z))
+  print("   ")
 
   print(x)
   print(y)
@@ -209,13 +202,13 @@ def temp():
   tempC="%.2f" %tempC
   print(tempC)
   setCursor(0,0)
-  Print("Temp: ")
-  Print(str(tempC))
+  print("Temp: ")
+  print(str(tempC))
   time.sleep(.2)
 
 def calibrate():
   clear()
-  Print("Calibrate....")
+  print("Calibrate....")
   global AxCal
   global AyCal
   global AzCal
@@ -259,9 +252,9 @@ def calibrate():
   print(GzCal)
 
 begin();
-Print("MPU6050 Interface")
+print("MPU6050 Interface")
 setCursor(0,1)
-Print("Circuit Digest")
+print("Circuit Digest")
 time.sleep(2)
 InitMPU()
 calibrate()
@@ -271,12 +264,12 @@ while 1:
   for i in range(20):
     temp()
   clear()
-  Print("Accel")
-  time.sleep(1)
-  for i in range(30):
-    accel()
-  clear()
-  Print("Gyro")
+  #print("Accel")
+  #time.sleep(1)
+  #for i in range(30):
+  #  accel()
+  # clear()
+  print("Gyro")
   time.sleep(1)
   for i in range(30):
     gyro()
