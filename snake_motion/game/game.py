@@ -1,6 +1,12 @@
+import os, sys
+lib_path = os.path.abspath('../outputs')
+sys.path.insert(0,lib_path)
+
 import numpy as np
+from gpio_manager import GPIO_Manager
 from tick import Tick
 
+from time import sleep
 
 class Game:
     """
@@ -47,3 +53,47 @@ class Game:
             self.__tick.increase_velocity()
             self.__add_tail = True
             self.__fruit = Fruit()
+
+
+def main():
+    gpio_manager = GPIO_Manager()
+    running = True
+
+    faces = [[[1, 0, 0, 0],
+              [1, 0, 0, 0],
+              [1, 0, 0, 0],
+              [1, 1, 1, 1]],
+             [[1, 1, 1, 1],
+              [1, 0, 0, 0],
+              [1, 0, 0, 0],
+              [1, 1, 1, 1]],
+             [[1, 1, 1, 1],
+              [1, 0, 0, 1],
+              [1, 0, 0, 1],
+              [1, 1, 1, 1]],
+             [[1, 1, 1, 1],
+              [1, 0, 1, 1],
+              [1, 0, 1, 1],
+              [1, 1, 1, 1]],
+             [[0, 1, 1, 0],
+              [1, 0, 0, 1],
+              [1, 0, 0, 0],
+              [1, 1, 1, 1]],
+             [[0, 1, 1, 0],
+              [1, 0, 0, 1],
+              [1, 0, 0, 1],
+              [0, 1, 1, 0]]]
+
+    while running:
+        try:
+            gpio_manager.setFaces(faces)
+            sleep(1.0)
+            gpio_manager.clear()
+
+        except KeyboardInterrupt:
+            gpio_manager.clear()
+            running = False
+
+
+if __name__ == "__main__":
+    main()
