@@ -43,12 +43,12 @@ gpio.setup(D7, gpio.OUT)
 
 def begin():
   cmd(0x33)
-    cmd(0x32)
-    cmd(0x06)
+  cmd(0x32)
+  cmd(0x06)
   cmd(0x0C)
-    cmd(0x28)
-    cmd(0x01)
-    time.sleep(0.0005)
+  cmd(0x28)
+  cmd(0x01)
+  time.sleep(0.0005)
 
 def cmd(ch):
   gpio.output(RS, 0)
