@@ -29,13 +29,13 @@ class GPIO_Manager:
             face_row = int((i % 2) * 2)
             if (i == 0 or (i >= 6 and i != 10)):
                 self.__view[i] = np.concatenate(
-                    faces[face_number, face_row + 1],
-                    faces[face_number, face_row],
+                    faces[face_number][face_row + 1],
+                    faces[face_number][face_row],
                     axis = None)
             else:
                 self.__view[i] = np.concatenate(
-                    faces[face_number, face_row],
-                    faces[face_number, face_row + 1],
+                    faces[face_number][face_row],
+                    faces[face_number][face_row + 1],
                     axis = None)
 
     def setValues(self, view):
