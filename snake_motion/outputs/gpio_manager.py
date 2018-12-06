@@ -25,8 +25,8 @@ class GPIO_Manager:
 
     def setFaces(self, faces):
         for i in range(12):
-            face_number = (i - i % 2) / 2
-            face_row = (i % 2) * 2
+            face_number = int((i - i % 2) / 2)
+            face_row = int((i % 2) * 2)
             if (i == 0 or (i >= 6 and i != 10)):
                 self.__view[i] = np.concatenate(
                     faces[face_number, face_row + 1],
