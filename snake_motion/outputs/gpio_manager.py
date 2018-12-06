@@ -56,6 +56,7 @@ class GPIO_Manager:
             gpio.output(clear, gpio.HIGH)
 
     def setupBoard(self):
+        gpio.setmode(gpio.BOARD)
         for input in self.__inputs:
             gpio.setup(input, gpio.OUT)
             gpio.output(input, gpio.LOW)
