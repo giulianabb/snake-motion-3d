@@ -55,7 +55,7 @@ def cos(x):
     math.cos(math.radians(x))
 
 
-bus = smbus2.SMBus(0)  # or bus = smbus.SMBus(0) for older version boards
+bus = smbus2.SMBus(1)  # or bus = smbus.SMBus(0) for older version boards
 Device_Address = 0x68   # MPU6050 device address
 
 deltaTime = 1
