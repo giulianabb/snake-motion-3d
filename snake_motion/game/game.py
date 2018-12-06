@@ -4,6 +4,8 @@ sys.path.insert(0,lib_path)
 
 import numpy as np
 from gpio_manager import GPIO_Manager
+from fruit import Fruit
+from snake import Snake
 from tick import Tick
 
 from time import sleep
