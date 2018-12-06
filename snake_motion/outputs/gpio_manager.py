@@ -48,11 +48,11 @@ class GPIO_Manager:
             self.tick()
 
     def clear(self):
-        for clear in self.clears:
+        for clear in self.__clears:
             gpio.output(clear, gpio.LOW)
-        for clock in self.clocks:
+        for clock in self.__clocks:
             self.tick()
-        for clear in self.clears:
+        for clear in self.__clears:
             gpio.output(clear, gpio.HIGH)
 
     def setupBoard(self):
