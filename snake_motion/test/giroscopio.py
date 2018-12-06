@@ -92,21 +92,25 @@ while True:
     angY += Gy * deltaTime
     angZ += Gz * deltaTime
 
-    x = -cos(angZ) * sin(angY) * sin(angX) - sin(angZ) * cos(angX)
-    y = -sin(angZ) * sin(angY) * sin(angX) + cos(angZ) * cos(angX)
-    z = cos(angY) * sin(angX)
+    print(angX)
+    print(angY)
+    print(angZ)
 
-    if y >= lim:
-        print("TOP")
-    elif y <= -lim:
-        print("DOWN")
-    elif x >= lim:
-        print("RIGHT")
-    elif x <= -lim:
-        print("LEFT")
-    elif z >= lim:
-        print("FRONT")
-    elif z <= -lim:
-        print("BACK")
+    # x = -cos(angZ) * sin(angY) * sin(angX) - sin(angZ) * cos(angX)
+    # y = -sin(angZ) * sin(angY) * sin(angX) + cos(angZ) * cos(angX)
+    # z = cos(angY) * sin(angX)
+
+    # if y >= lim:
+    #     print("TOP")
+    # elif y <= -lim:
+    #     print("DOWN")
+    # elif x >= lim:
+    #     print("RIGHT")
+    # elif x <= -lim:
+    #     print("LEFT")
+    # elif z >= lim:
+    #     print("FRONT")
+    # elif z <= -lim:
+    #     print("BACK")
 
     sleep(1)
