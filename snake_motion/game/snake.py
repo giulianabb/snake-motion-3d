@@ -27,7 +27,7 @@ class SnakePart:
         self.__col = col
         self.__face = face
 
-    def update_position(lin, col, face, add_tail):
+    def update_position(self, lin, col, face, add_tail):
         """
         Atualiza a posição dessa parte da cobra, e atualiza a próxima com ela
         Antes:  [3][2][1][Head][ ]
@@ -53,14 +53,14 @@ class Snake(SnakePart):
         __nextPart = SnakePart(2, 3, 0)
 
 
-    def update_direction(direction):
+    def update_direction(self, direction):
         """
         Atualiza a direção
         """
         self.__direction = direction
 
 
-    def move_to_direction():
+    def move_to_direction(self):
         if self.__direction == Direction.NORTH:
             self.__lin += 1
         elif self.direction == Direction.EAST:
@@ -71,7 +71,7 @@ class Snake(SnakePart):
             self.__lin -= 1
 
 
-    def move_to_upper_cube():
+    def move_to_upper_cube(self):
         if self.__face < Face.LEFT:
             self.__face = (self.__face + 1) % Face.LEFT
             self.__col = 0
@@ -82,7 +82,7 @@ class Snake(SnakePart):
             self.__lin = 0
 
 
-    def move_to_lower_cube():
+    def move_to_lower_cube(self):
         if self.__face < Face.LEFT:
             self.__face = (self.__face - 1) % Face.LEFT
             self.__col = 3
@@ -93,7 +93,7 @@ class Snake(SnakePart):
             self.__lin = 3
 
 
-    def move_to_left_cube():
+    def move_to_left_cube(self):
         if self.__face < Face.LEFT:
             self.__face = Face.LEFT
             self.__direction = (2 - self.__face) % Face.LEFT
@@ -119,7 +119,7 @@ class Snake(SnakePart):
             self.__lin = 3
 
 
-    def move_to_right_cube():
+    def move_to_right_cube(self):
         if self.__face < Face.LEFT:
             self.__face = Face.RIGHT
             self.__direction = (self.__face - 2) % Face.LEFT
@@ -145,7 +145,7 @@ class Snake(SnakePart):
             self.__lin = 0
 
 
-    def update_position(add_tail):
+    def update_position(self, add_tail):
         """
         Igual a updatePosition de SnakePart, mas precisa definir a posição da
         cabeça com base na direção atual
@@ -153,16 +153,16 @@ class Snake(SnakePart):
         if self.__nextPart != None:
             self.__nextPart.update_position(self.__lin, self.__col, self.__face, add_tail)
         else:
-            move_to_direction()
+            self.move_to_direction()
             if self.__col > 3:
-                move_to_upper_cube()
+                self.move_to_upper_cube()
             if self.__col < 0:
-                move_to_lower_cube()
+                self.move_to_lower_cube()
             if self.__lin < 0:
-                move_to_left_cube()
+                self.move_to_left_cube()
             if self.__lin > 3:
-                move_to_right_cube()
+                self.move_to_right_cube()
 
 
-    def get_head_position():
+    def get_head_position(self):
         return (self.__lin, self.__col, self.__face)
