@@ -193,7 +193,7 @@ def gyro():
   Gy = y/131.0 - GyCal
   Gz = z/131.0 - GzCal
   #print("X="+str(Gx))
-  display(Gx,Gy,Gz)
+  display("X: %d\nY: %d\nZ: %d\n" % (Gx,Gy,Gz))
   time.sleep(.01)
 
 def temp():
@@ -261,9 +261,9 @@ calibrate()
 while 1:
   InitMPU()
   clear()
-  for i in range(20):
-    temp()
-  clear()
+  #for i in range(20):
+  #  temp()
+  # clear()
   #print("Accel")
   #time.sleep(1)
   #for i in range(30):
