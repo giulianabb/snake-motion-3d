@@ -138,28 +138,6 @@ def InitMPU():
   bus.write_byte_data(Device_Address, INT_EN, 1)
   time.sleep(1)
 
-def display(x,y,z):
-  x=x*100
-  y=y*100
-  z=z*100
-  x= "%d" %x
-  y= "%d" %y
-  z= "%d" %z
-  setCursor(0,0)
-  print("X     Y     Z")
-  setCursor(0,1)
-  print(str(x))
-  print("   ")
-  setCursor(6,1)
-  print(str(y))
-  print("   ")
-  setCursor(12,1)
-  print(str(z))
-  print("   ")
-
-  print(x)
-  print(y)
-  print(z)
 
 def readMPU(addr):
   high = bus.read_byte_data(Device_Address, addr)
@@ -179,7 +157,6 @@ def accel():
   Az = (z/16384.0-AzCal)
 
   #print("X="+str(Ax))
-  display(Ax,Ay,Az)
   time.sleep(.01)
 
 def gyro():
@@ -193,7 +170,7 @@ def gyro():
   Gy = y/131.0 - GyCal
   Gz = z/131.0 - GzCal
   #print("X="+str(Gx))
-  display("X: %d\nY: %d\nZ: %d\n" % (Gx,Gy,Gz))
+  print("X: %d\nY: %d\nZ: %d\n" % (Gx,Gy,Gz))
   time.sleep(.01)
 
 def temp():
