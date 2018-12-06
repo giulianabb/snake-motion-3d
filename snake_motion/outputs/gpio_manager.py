@@ -7,7 +7,7 @@ class GPIO_Manager:
     Classe responsável por controlar as GPIOs
     """
 
-    __view = np.zeros(12, 8)
+    __view = np.zeros((12, 8))
     __inputs = [7, 11, 13, 15, 19, 21, 23, 29, 31, 33, 35, 37]
     __clocks = [12, 16, 18, 22]
     __clears = [24, 26, 32, 36]
