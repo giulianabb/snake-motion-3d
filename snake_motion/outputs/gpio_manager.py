@@ -25,17 +25,25 @@ class GPIO_Manager:
 
     def setFaces(self, faces):
         for i in range(12):
+            face_number = (i - i % 2) / 2
+            face_row = (i % 2) * 2
             if (i == 0 or (i >= 6 and i != 10)):
-                self.__view[i] = faces[(i - i % 2) / 2, ]
+                self.__view[i] = np.concatenate(
+                    faces[face_number, face_row + 1],
+                    faces[face_number, face_row],
+                    axis = None)
+            else:
+                self.__view[i] = np.concatenate(
+                    faces[face_number, face_row],
+                    faces[face_number, face_row + 1],
+                    axis = None)
 
     def setValues(self, view):
         for i in range(8):
             for j in range(12):
                 if(view[j][i] == 0):
-                    print("Output LOW")
                     gpio.output(self.__inputs[j], gpio.LOW)
                 else:
-                    print("Output HIGH")
                     gpio.output(self.__inputs[j], gpio.HIGH)
             self.tick()
 
