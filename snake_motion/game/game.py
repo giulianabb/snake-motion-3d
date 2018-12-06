@@ -76,7 +76,7 @@ class Game:
         elif tick_count == 1:
             snake_head = self.__snake.get_head_position()
             self.__board[snake_head[0]][snake_head[1]][snake_head[2]] = 1
-            self.__gpio_manager.setFaces(faces)
+            self.__gpio_manager.setFaces(self.__board)
         elif tick_count == 4:
             self.__gpio_manager.clear()
 
