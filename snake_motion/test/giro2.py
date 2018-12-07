@@ -45,7 +45,7 @@ def write_byte(address, adr, value):
 
 bus = smbus.SMBus(1) # bus = smbus.SMBus(0) fuer Revision 1
 address_gyro = 0x68       # via i2cdetect
-address_mag = 0x1e
+address_mag = 0x77
 
 scale = 0.92
 x_offset = -10
