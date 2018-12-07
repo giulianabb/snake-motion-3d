@@ -88,7 +88,6 @@ class Game:
 
             self.__gpio_manager.setFaces(self.__board)
         elif tick_count == 4:
-            1
             self.__gpio_manager.clear()
 
     def update_fruit(self):
@@ -96,6 +95,9 @@ class Game:
         if self.__fruit.has_been_eaten(snake_head[0], snake_head[1], snake_head[2]):
             # nao sei porque, mas tick nao aparece preenchido aqui
             # self.__tick.increase_velocity()
+            print(self)
+            print(self.__tick)
+            print(self.__snake)
             self.__add_tail = True
             self.__fruit = Fruit()
 
