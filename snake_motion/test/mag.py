@@ -26,9 +26,9 @@ def read_word_2c(adr):
 def write_byte(adr, value):
     bus.write_byte_data(address, adr, value)
 
-# write_byte(0, 0b01110000) # Set to 8 samples @ 15Hz
-# write_byte(1, 0b00100000) # 1.3 gain LSb / Gauss 1090 (default)
-# write_byte(2, 0b00000000) # Continuous sampling
+write_byte(0, 0b01110000) # Set to 8 samples @ 15Hz
+write_byte(1, 0b00100000) # 1.3 gain LSb / Gauss 1090 (default)
+write_byte(2, 0b00000000) # Continuous sampling
 
 scale = 0.92
 
