@@ -3,7 +3,8 @@ lib_path = os.path.abspath('../outputs')
 sys.path.insert(0,lib_path)
 
 import numpy as np
-from gpio_manager import GPIO_Manager
+# from gpio_manager import GPIO_Manager
+from mouse import Mouse
 from fruit import Fruit
 from snake import Snake
 from tick import Tick
@@ -55,10 +56,14 @@ class Game:
                          [0, 0, 0, 0],
                          [0, 0, 0, 0]]]
 
-        self.__gpio_manager = GPIO_Manager()
+        # self.__gpio_manager = GPIO_Manager()
         self.__snake = Snake()
         self.__fruit = Fruit()
+        self.__mouse = Mouse(self.on_click)
         self.__tick = Tick(self.on_tick)
+
+    def on_click(self, isLeft):
+        self.__snake.update_direction(isLeft)
 
     def on_tick(self, tick_count):
 
@@ -75,14 +80,17 @@ class Game:
             self.update_fruit()
         elif tick_count == 1:
             snake_head = self.__snake.get_head_position()
+            print(snake_head)
             self.__board[snake_head[0]][snake_head[1]][snake_head[2]] = 1
-            self.__gpio_manager.setFaces(self.__board)
+            # self.__gpio_manager.setFaces(self.__board)
         elif tick_count == 4:
-            self.__gpio_manager.clear()
+            1
+            # self.__gpio_manager.clear()
 
-    def update_fruit():
+    def update_fruit(self):
         snake_head = self.__snake.get_head_position()
         if self.__fruit.has_been_eaten(snake_head[0], snake_head[1], snake_head[2]):
+            # nao sei porque, mas tick nao aparece preenchido aqui
             self.__tick.increase_velocity()
             self.__add_tail = True
             self.__fruit = Fruit()
@@ -93,9 +101,10 @@ def main():
     running = True
     while running:
         try:
-            print("running")
+            1
         except KeyboardInterrupt:
-            gpio_manager.clear()
+            # gpio_manager.clear()
+            self.__mouse.finalize()
             running = False
 
 if __name__ == "__main__":

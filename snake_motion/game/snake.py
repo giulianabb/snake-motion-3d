@@ -46,29 +46,28 @@ class Snake(SnakePart):
     """
     Classe que representa a cobra.
     """
-    __direction = Direction.NORTH
+    direction = Direction.NORTH
 
     def __init__(self):
-        super().__init__(2, 2, 0)
+        super().__init__(2, 2, Face.FRONT)
         nextPart = SnakePart(2, 3, 0)
 
 
-    def update_direction(self, direction):
-        """
-        Atualiza a direção
-        """
-        self.__direction = direction
-
+    def update_direction(self, isClockwise):
+        if (isClockwise):
+            self.direction = (self.direction + 1) % 4
+        else:
+            self.direction = (self.direction - 1) % 4
 
     def move_to_direction(self):
-        if self.__direction == Direction.NORTH:
-            self.lin += 1
-        elif self.direction == Direction.EAST:
-            self.col -= 1
-        elif self.direction == Direction.WEST:
+        if self.direction == Direction.NORTH:
             self.col += 1
-        elif self.direction == Direction.SOUTH:
+        elif self.direction == Direction.EAST:
             self.lin -= 1
+        elif self.direction == Direction.WEST:
+            self.lin += 1
+        elif self.direction == Direction.SOUTH:
+            self.col -= 1
 
 
     def move_to_upper_cube(self):
@@ -77,7 +76,7 @@ class Snake(SnakePart):
             self.col = 0
         else:
             self.face = Face.FRONT if self.face == Face.LEFT else Face.BACK
-            self.__direction = Direction.WEST
+            self.direction = Direction.WEST
             self.col = self.lin
             self.lin = 0
 
@@ -87,16 +86,16 @@ class Snake(SnakePart):
             self.face = (self.face - 1) % Face.LEFT
             self.col = 3
         else:
-            self.face = Face.BACK if self.face == Face.LEFT else Face.FRONT
-            self.__direction = Face.EAST
+            print('ideia errada aqui')
+            self.face = Face.FRONT if self.face == Face.LEFT else Face.BACK
+            self.direction = Direction.EAST
             self.col = 3 - self.lin
             self.lin = 3
 
 
     def move_to_left_cube(self):
         if self.face < Face.LEFT:
-            self.face = Face.LEFT
-            self.__direction = (2 - self.face) % Face.LEFT
+            self.direction = (2 - self.face) % Face.LEFT
             if self.face == Face.FRONT:
                 self.lin = self.col
                 self.col = 3
@@ -108,10 +107,11 @@ class Snake(SnakePart):
                 self.col = 0
             elif self.face == Face.DOWN:
                 self.lin = 0
+            self.face = Face.LEFT
 
         elif self.face == Face.LEFT:
             self.face = Face.DOWN
-            self.__direction = Direction.WEST
+            self.direction = Direction.WEST
             self.lin = 0
         elif self.face == Face.RIGHT:
             self.face = Face.TOP
@@ -121,8 +121,7 @@ class Snake(SnakePart):
 
     def move_to_right_cube(self):
         if self.face < Face.LEFT:
-            self.face = Face.RIGHT
-            self.__direction = (self.face - 2) % Face.LEFT
+            self.direction = (self.face - 2) % Face.LEFT
             if self.face == Face.FRONT:
                 self.lin = 3 - self.col
                 self.col = 3
@@ -134,10 +133,11 @@ class Snake(SnakePart):
                 self.col = 0
             elif self.face == Face.DOWN:
                 self.lin = 3
+            self.face = Face.RIGHT
 
         elif self.face == Face.RIGHT:
             self.face = Face.DOWN
-            self.__direction = Direction.EAST
+            self.direction = Direction.EAST
             self.lin = 3
         elif self.face == Face.LEFT:
             self.face = Face.TOP
@@ -156,13 +156,13 @@ class Snake(SnakePart):
             self.move_to_direction()
             if self.col > 3:
                 self.move_to_upper_cube()
-            if self.col < 0:
+            elif self.col < 0:
                 self.move_to_lower_cube()
-            if self.lin < 0:
+            elif self.lin < 0:
                 self.move_to_left_cube()
-            if self.lin > 3:
+            elif self.lin > 3:
                 self.move_to_right_cube()
 
 
     def get_head_position(self):
-        return (self.lin, self.col, self.face)
+        return (self.face, self.col, self.lin)
