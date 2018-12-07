@@ -80,8 +80,12 @@ class Game:
             self.update_fruit()
         elif tick_count == 1:
             snake_head = self.__snake.get_head_position()
+            snake_tail = self.__snake.get_tail_position()
+
             print(snake_head)
             self.__board[snake_head[0]][snake_head[1]][snake_head[2]] = 1
+            self.__board[snake_tail[0]][snake_tail[1]][snake_tail[2]] = 0
+
             self.__gpio_manager.setFaces(self.__board)
         elif tick_count == 4:
             1

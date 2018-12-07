@@ -42,6 +42,12 @@ class SnakePart:
         self.col = col
         self.face = face
 
+    def get_tail_position(self):
+        if (self.nextPart == None):
+            return (self.face, self.col, self.lin)
+        else:
+            return self.nextPart.get_tail_position()
+
 class Snake(SnakePart):
     """
     Classe que representa a cobra.
