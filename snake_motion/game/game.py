@@ -84,11 +84,9 @@ class Game:
 
             print(snake_head)
             self.__board[snake_head[0]][snake_head[1]][snake_head[2]] = 1
-            self.__board[snake_tail[0]][snake_tail[1]][snake_tail[2]] = 0
-
             print(self.__board)
-
             self.__gpio_manager.setFaces(self.__board)
+            self.__board[snake_tail[0]][snake_tail[1]][snake_tail[2]] = 0
         elif tick_count == 4:
             self.__gpio_manager.clear()
 
