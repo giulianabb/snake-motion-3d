@@ -17,152 +17,152 @@ class Face(IntEnum):
 
 class SnakePart:
 
-    __lin = 0
-    __col = 0
-    __face = 0
-    __nextPart = None
+    lin = 0
+    col = 0
+    face = 0
+    nextPart = None
 
     def __init__(self, lin, col, face):
-        self.__lin = lin
-        self.__col = col
-        self.__face = face
+        self.lin = lin
+        self.col = col
+        self.face = face
 
-    def update_position(lin, col, face, add_tail):
+    def update_position(self, lin, col, face, add_tail):
         """
         Atualiza a posição dessa parte da cobra, e atualiza a próxima com ela
         Antes:  [3][2][1][Head][ ]
         Depois: [ ][3][2][1][Head]
         """
-        if self.__nextPart != None:
-            self.__nextPart.update_position(self.__lin, self.__col, self.__face, add_tail)
+        if self.nextPart != None:
+            self.nextPart.update_position(self.lin, self.col, self.face, add_tail)
         elif add_tail == True:
-            self.__nextPart = SnakePart(self.__lin, self.__col, self.__face)
+            self.nextPart = SnakePart(self.lin, self.col, self.face)
         # The update itself
-        self.__lin = lin
-        self.__col = col
-        self.__face = face
+        self.lin = lin
+        self.col = col
+        self.face = face
 
 class Snake(SnakePart):
     """
     Classe que representa a cobra.
     """
-    __direction = Direction.NORTH
+    direction = Direction.NORTH
 
     def __init__(self):
-        super().__init__(2, 2, 0)
-        __nextPart = SnakePart(2, 3, 0)
+        super().__init__(2, 2, Face.FRONT)
+        nextPart = SnakePart(2, 3, 0)
 
 
-    def update_direction(direction):
-        """
-        Atualiza a direção
-        """
-        self.__direction = direction
+    def update_direction(self, isClockwise):
+        if (isClockwise):
+            self.direction = (self.direction + 1) % 4
+        else:
+            self.direction = (self.direction - 1) % 4
 
-
-    def move_to_direction():
-        if self.__direction == Direction.NORTH:
-            self.__lin += 1
+    def move_to_direction(self):
+        if self.direction == Direction.NORTH:
+            self.col += 1
         elif self.direction == Direction.EAST:
-            self.__col -= 1
+            self.lin -= 1
         elif self.direction == Direction.WEST:
-            self.__col += 1
+            self.lin += 1
         elif self.direction == Direction.SOUTH:
-            self.__lin -= 1
+            self.col -= 1
 
 
-    def move_to_upper_cube():
-        if self.__face < Face.LEFT:
-            self.__face = (self.__face + 1) % Face.LEFT
-            self.__col = 0
+    def move_to_upper_cube(self):
+        if self.face < Face.LEFT:
+            self.face = (self.face + 1) % Face.LEFT
+            self.col = 0
         else:
-            self.__face = Face.FRONT if self.__face == Face.LEFT else Face.BACK
-            self.__direction = Direction.WEST
-            self.__col = self.__lin
-            self.__lin = 0
+            self.face = Face.FRONT if self.face == Face.LEFT else Face.BACK
+            self.direction = Direction.WEST
+            self.col = self.lin
+            self.lin = 0
 
 
-    def move_to_lower_cube():
-        if self.__face < Face.LEFT:
-            self.__face = (self.__face - 1) % Face.LEFT
-            self.__col = 3
+    def move_to_lower_cube(self):
+        if self.face < Face.LEFT:
+            self.face = (self.face - 1) % Face.LEFT
+            self.col = 3
         else:
-            self.__face = Face.BACK if self.__face == Face.LEFT else Face.FRONT
-            self.__direction = Face.EAST
-            self.__col = 3 - self.__lin
-            self.__lin = 3
+            print('ideia errada aqui')
+            self.face = Face.FRONT if self.face == Face.LEFT else Face.BACK
+            self.direction = Direction.EAST
+            self.col = 3 - self.lin
+            self.lin = 3
 
 
-    def move_to_left_cube():
-        if self.__face < Face.LEFT:
-            self.__face = Face.LEFT
-            self.__direction = (2 - self.__face) % Face.LEFT
-            if self.__face == Face.FRONT:
-                self.__lin = self.__col
-                self.__col = 3
-            elif self.__face == Face.TOP:
-                self.__col = 3 - self.__col
-                self.__lin = 3
-            elif self.__face == Face.BACK:
-                self.__lin = 3 - self.__col
-                self.__col = 0
-            elif self.__face == Face.DOWN:
-                self.__lin = 0
+    def move_to_left_cube(self):
+        if self.face < Face.LEFT:
+            self.direction = (2 - self.face) % Face.LEFT
+            if self.face == Face.FRONT:
+                self.lin = self.col
+                self.col = 3
+            elif self.face == Face.TOP:
+                self.col = 3 - self.col
+                self.lin = 3
+            elif self.face == Face.BACK:
+                self.lin = 3 - self.col
+                self.col = 0
+            elif self.face == Face.DOWN:
+                self.lin = 0
+            self.face = Face.LEFT
 
-        elif self.__face == Face.LEFT:
-            self.__face = Face.DOWN
-            self.__direction = Direction.WEST
-            self.__lin = 0
-        elif self.__face == Face.RIGHT:
-            self.__face = Face.TOP
-            self.__col = 3 - self.__col
-            self.__lin = 3
-
-
-    def move_to_right_cube():
-        if self.__face < Face.LEFT:
-            self.__face = Face.RIGHT
-            self.__direction = (self.__face - 2) % Face.LEFT
-            if self.__face == Face.FRONT:
-                self.__lin = 3 - self.__col
-                self.__col = 3
-            elif self.__face == Face.TOP:
-                self.__col = 3 - self.__col
-                self.__lin = 0
-            elif self.__face == Face.BACK:
-                self.__lin = self.__col
-                self.__col = 0
-            elif self.__face == Face.DOWN:
-                self.__lin = 3
-
-        elif self.__face == Face.RIGHT:
-            self.__face = Face.DOWN
-            self.__direction = Direction.EAST
-            self.__lin = 3
-        elif self.__face == Face.LEFT:
-            self.__face = Face.TOP
-            self.__col = 3 - self.__col
-            self.__lin = 0
+        elif self.face == Face.LEFT:
+            self.face = Face.DOWN
+            self.direction = Direction.WEST
+            self.lin = 0
+        elif self.face == Face.RIGHT:
+            self.face = Face.TOP
+            self.col = 3 - self.col
+            self.lin = 3
 
 
-    def update_position(add_tail):
+    def move_to_right_cube(self):
+        if self.face < Face.LEFT:
+            self.direction = (self.face - 2) % Face.LEFT
+            if self.face == Face.FRONT:
+                self.lin = 3 - self.col
+                self.col = 3
+            elif self.face == Face.TOP:
+                self.col = 3 - self.col
+                self.lin = 0
+            elif self.face == Face.BACK:
+                self.lin = self.col
+                self.col = 0
+            elif self.face == Face.DOWN:
+                self.lin = 3
+            self.face = Face.RIGHT
+
+        elif self.face == Face.RIGHT:
+            self.face = Face.DOWN
+            self.direction = Direction.EAST
+            self.lin = 3
+        elif self.face == Face.LEFT:
+            self.face = Face.TOP
+            self.col = 3 - self.col
+            self.lin = 0
+
+
+    def update_position(self, add_tail):
         """
         Igual a updatePosition de SnakePart, mas precisa definir a posição da
         cabeça com base na direção atual
         """
-        if self.__nextPart != None:
-            self.__nextPart.update_position(self.__lin, self.__col, self.__face, add_tail)
+        if self.nextPart != None:
+            self.nextPart.update_position(self.lin, self.col, self.face, add_tail)
         else:
-            move_to_direction()
-            if self.__col > 3:
-                move_to_upper_cube()
-            if self.__col < 0:
-                move_to_lower_cube()
-            if self.__lin < 0:
-                move_to_left_cube()
-            if self.__lin > 3:
-                move_to_right_cube()
+            self.move_to_direction()
+            if self.col > 3:
+                self.move_to_upper_cube()
+            elif self.col < 0:
+                self.move_to_lower_cube()
+            elif self.lin < 0:
+                self.move_to_left_cube()
+            elif self.lin > 3:
+                self.move_to_right_cube()
 
 
-    def get_head_position():
-        return (self.__lin, self.__col, self.__face)
+    def get_head_position(self):
+        return (self.face, self.col, self.lin)

@@ -7,7 +7,7 @@ class GPIO_Manager:
     Classe responsável por controlar as GPIOs
     """
 
-    __view = np.zeros(12, 8)
+    __view = np.zeros((12, 8))
     __inputs = [7, 11, 13, 15, 19, 21, 23, 29, 31, 33, 35, 37]
     __clocks = [12, 16, 18, 22]
     __clears = [24, 26, 32, 36]
@@ -25,37 +25,39 @@ class GPIO_Manager:
 
     def setFaces(self, faces):
         for i in range(12):
-            face_number = (i - i % 2) / 2
-            face_row = (i % 2) * 2
-            if (i == 0 or (i >= 6 and i != 10)):
-                self.__view[i] = np.concatenate(
-                    faces[face_number, face_row + 1],
-                    faces[face_number, face_row],
+            face_number = int((i - i % 2) / 2)
+            face_row = int((i % 2) * 2)
+            if (i == 1 or (i >= 6 and i != 10)):
+                self.__view[i] = np.concatenate((
+                    faces[face_number][face_row + 1],
+                    faces[face_number][face_row]),
                     axis = None)
             else:
-                self.__view[i] = np.concatenate(
-                    faces[face_number, face_row],
-                    faces[face_number, face_row + 1],
+                self.__view[i] = np.concatenate((
+                    faces[face_number][face_row],
+                    faces[face_number][face_row + 1]),
                     axis = None)
+        self.showView()
 
-    def setValues(self, view):
+    def showView(self):
         for i in range(8):
             for j in range(12):
-                if(view[j][i] == 0):
+                if(self.__view[j][i] == 0):
                     gpio.output(self.__inputs[j], gpio.LOW)
                 else:
                     gpio.output(self.__inputs[j], gpio.HIGH)
             self.tick()
 
     def clear(self):
-        for clear in self.clears:
+        for clear in self.__clears:
             gpio.output(clear, gpio.LOW)
-        for clock in self.clocks:
+        for clock in self.__clocks:
             self.tick()
-        for clear in self.clears:
+        for clear in self.__clears:
             gpio.output(clear, gpio.HIGH)
 
     def setupBoard(self):
+        gpio.setmode(gpio.BOARD)
         for input in self.__inputs:
             gpio.setup(input, gpio.OUT)
             gpio.output(input, gpio.LOW)
