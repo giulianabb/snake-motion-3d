@@ -158,16 +158,16 @@ class Snake(SnakePart):
         """
         if self.nextPart != None:
             self.nextPart.update_position(self.lin, self.col, self.face, add_tail)
-        else:
-            self.move_to_direction()
-            if self.col > 3:
-                self.move_to_upper_cube()
-            elif self.col < 0:
-                self.move_to_lower_cube()
-            elif self.lin < 0:
-                self.move_to_left_cube()
-            elif self.lin > 3:
-                self.move_to_right_cube()
+
+        self.move_to_direction()
+        if self.col > 3:
+            self.move_to_upper_cube()
+        elif self.col < 0:
+            self.move_to_lower_cube()
+        elif self.lin < 0:
+            self.move_to_left_cube()
+        elif self.lin > 3:
+            self.move_to_right_cube()
 
 
     def get_head_position(self):
