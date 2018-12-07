@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import smbus
-import time
+from time import sleep
 import math
 
 bus = smbus.SMBus(1) # bus = smbus.SMBus(0) fuer Revision 1
