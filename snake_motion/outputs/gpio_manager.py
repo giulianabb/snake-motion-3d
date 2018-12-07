@@ -38,7 +38,7 @@ class GPIO_Manager:
         ), axis = None)
 
         self.__view[2] = np.concatenate((
-            np.transpose(faces[Face.RIGHT])[0], np.flip(np.transpose(faces[Face.RIGHT])[1], 0)
+            np.transpose(faces[Face.RIGHT])[3], np.flip(np.transpose(faces[Face.RIGHT])[2], 0)
         ), axis = None)
 
         self.__view[3] = np.concatenate((
@@ -46,7 +46,7 @@ class GPIO_Manager:
         ), axis = None)
 
         self.__view[4] = np.concatenate((
-            np.transpose(faces[Face.LEFT])[2], np.flip(np.transpose(faces[Face.LEFT])[3], 0)
+            np.transpose(faces[Face.LEFT])[1], np.flip(np.transpose(faces[Face.LEFT])[0], 0)
         ), axis = None)
 
         self.__view[5] = np.concatenate((
@@ -58,7 +58,7 @@ class GPIO_Manager:
         ), axis = None)
 
         self.__view[7] = np.concatenate((
-            np.transpose(faces[Face.LEFT])[1], np.flip(np.transpose(faces[Face.LEFT])[0], 0)
+            np.transpose(faces[Face.LEFT])[3], np.flip(np.transpose(faces[Face.LEFT])[2], 0)
         ), axis = None)
 
         self.__view[8] = np.concatenate((
@@ -66,7 +66,7 @@ class GPIO_Manager:
         ), axis = None)
 
         self.__view[9] = np.concatenate((
-            np.transpose(faces[Face.RIGHT])[3], np.flip(np.transpose(faces[Face.RIGHT])[2], 0)
+            np.transpose(faces[Face.RIGHT])[1], np.flip(np.transpose(faces[Face.RIGHT])[0], 0)
         ), axis = None)
 
         self.__view[10] = np.concatenate((
