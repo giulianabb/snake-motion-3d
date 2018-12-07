@@ -55,8 +55,9 @@ class Snake(SnakePart):
     direction = Direction.WEST
 
     def __init__(self):
-        super().__init__(0, 2, Face.TOP)
-        self.nextPart = SnakePart(2, 3, 0)
+        super().__init__(2, 2, Face.TOP)
+        self.nextPart = SnakePart(1, 2, Face.TOP)
+        self.nextPart.nextPart = SnakePart(0, 2, Face.TOP)
 
 
     def update_direction(self, isClockwise):
