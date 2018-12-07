@@ -25,51 +25,51 @@ class GPIO_Manager:
 
     def setFaces(self, faces):
         self.__view[0] = np.concatenate((
-            faces[1][0], np.invert(faces[1][1])
+            faces[1][0], np.flip(faces[1][1])
         ), axis = None)
 
         self.__view[1] = np.concatenate((
-            faces[1][3], np.invert(faces[1][2])
+            faces[1][3], np.flip(faces[1][2])
         ), axis = None)
 
         self.__view[2] = np.concatenate((
-            faces[0][0], np.invert(faces[0][1])
+            faces[0][0], np.flip(faces[0][1])
         ), axis = None)
 
         self.__view[3] = np.concatenate((
-            faces[5][2], np.invert(faces[5][3])
+            faces[5][2], np.flip(faces[5][3])
         ), axis = None)
 
         self.__view[4] = np.concatenate((
-            faces[2][2], np.invert(faces[2][3])
+            faces[2][2], np.flip(faces[2][3])
         ), axis = None)
 
         self.__view[5] = np.concatenate((
-            faces[4][2], np.invert(faces[4][3])
+            faces[4][2], np.flip(faces[4][3])
         ), axis = None)
 
         self.__view[6] = np.concatenate((
-            faces[5][1], np.invert(faces[5][0])
+            faces[5][1], np.flip(faces[5][0])
         ), axis = None)
 
         self.__view[7] = np.concatenate((
-            faces[2][1], np.invert(faces[2][0])
+            faces[2][1], np.flip(faces[2][0])
         ), axis = None)
 
         self.__view[8] = np.concatenate((
-            faces[4][1], np.invert(faces[4][0])
+            faces[4][1], np.flip(faces[4][0])
         ), axis = None)
 
         self.__view[9] = np.concatenate((
-            faces[0][3], np.invert(faces[0][2])
+            faces[0][3], np.flip(faces[0][2])
         ), axis = None)
 
         self.__view[10] = np.concatenate((
-            faces[3][0], np.invert(faces[3][1])
+            faces[3][0], np.flip(faces[3][1])
         ), axis = None)
 
         self.__view[11] = np.concatenate((
-            faces[3][3], np.invert(faces[3][2])
+            faces[3][3], np.flip(faces[3][2])
         ), axis = None)
 
         self.showView()
