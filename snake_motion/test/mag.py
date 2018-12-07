@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import smbus
-import time
+from time import sleep
 import math
 
 bus = smbus.SMBus(1)
@@ -34,12 +34,15 @@ scale = 0.92
 
 x_offset = -10
 y_offset = 10
-x_out = (read_word_2c(3) - x_offset) * scale
-y_out = (read_word_2c(7) - y_offset) * scale
-z_out = (read_word_2c(5)) * scale
 
-bearing  = math.atan2(y_out, x_out) 
-if (bearing < 0):
-    bearing += 2 * math.pi
+while (True):
+    x_out = (read_word_2c(3) - x_offset) * scale
+    y_out = (read_word_2c(7) - y_offset) * scale
+    z_out = (read_word_2c(5)) * scale
 
-print "Bearing: ", math.degrees(bearing)
+    bearing  = math.atan2(y_out, x_out) 
+    if (bearing < 0):
+        bearing += 2 * math.pi
+
+    print ("Bearing: ", math.degrees(bearing))
+    sleep(2)
