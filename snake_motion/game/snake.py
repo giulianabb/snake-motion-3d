@@ -56,7 +56,7 @@ class Snake(SnakePart):
 
     def __init__(self):
         super().__init__(0, 2, Face.TOP)
-        nextPart = SnakePart(2, 3, 0)
+        self.nextPart = SnakePart(2, 3, 0)
 
 
     def update_direction(self, isClockwise):
