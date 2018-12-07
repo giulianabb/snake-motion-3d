@@ -29,7 +29,7 @@ class GPIO_Manager:
         ), axis = None)
 
         self.__view[1] = np.concatenate((
-            faces[1][3], np.flip(faces[1][2], 0)
+            faces[1][2], np.flip(faces[1][3], 0)
         ), axis = None)
 
         self.__view[2] = np.concatenate((
