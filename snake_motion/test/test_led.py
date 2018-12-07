@@ -10,8 +10,8 @@ class Shifter():
             https://www.instructables.com/id/Using-a-shift-register-with-Raspberry-Pi/
     """
 
-    view1 = [[0, 0, 0, 0, 0, 0, 0, 0],  # C1  TOP
-             [0, 0, 0, 0, 0, 0, 0, 0],  # C2  TOP
+    views = [[1, 0, 1, 0, 1, 0, 1, 0],  # C1  TOP
+             [0, 1, 0, 1, 0, 1, 0, 1],  # C2  TOP
              [0, 0, 0, 0, 0, 0, 0, 0],  # F1  FRONT
              [0, 0, 0, 0, 0, 0, 0, 0],  # D2  RIGHT
              [0, 0, 0, 0, 0, 0, 0, 0],  # A2  BACK
@@ -22,32 +22,6 @@ class Shifter():
              [0, 0, 0, 0, 0, 0, 0, 0],  # F2  FRONT
              [0, 0, 0, 0, 0, 0, 0, 0],  # B1  DOWN
              [0, 0, 0, 0, 0, 0, 0, 0]]  # B2  DOWN
-
-    view2 = [[0, 0, 0, 0, 0, 1, 1, 0],  # C1
-             [0, 1, 1, 0, 0, 0, 0, 0],  # C2
-             [0, 0, 0, 0, 0, 1, 1, 0],  # F1
-             [0, 0, 0, 0, 0, 1, 1, 0],  # D2
-             [0, 0, 0, 0, 0, 1, 1, 0],  # A2
-             [0, 0, 0, 0, 0, 1, 1, 0],  # E2
-             [0, 1, 1, 0, 0, 0, 0, 0],  # D1
-             [0, 1, 1, 0, 0, 0, 0, 0],  # A1
-             [0, 1, 1, 0, 0, 0, 0, 0],  # E1
-             [0, 1, 1, 0, 0, 0, 0, 0],  # F2
-             [0, 0, 0, 0, 0, 1, 1, 0],  # B1
-             [0, 1, 1, 0, 0, 0, 0, 0]]  # B2
-
-    view3 = [[1, 1, 1, 1, 1, 0, 0, 1],  # C1
-             [1, 0, 0, 1, 1, 1, 1, 1],  # C2
-             [1, 1, 1, 1, 1, 0, 0, 1],  # F1
-             [1, 1, 1, 1, 1, 0, 0, 1],  # D2
-             [1, 1, 1, 1, 1, 0, 0, 1],  # A2
-             [1, 1, 1, 1, 1, 0, 0, 1],  # E2
-             [1, 0, 0, 1, 1, 1, 1, 1],  # D1
-             [1, 0, 0, 1, 1, 1, 1, 1],  # A1
-             [1, 0, 0, 1, 1, 1, 1, 1],  # E1
-             [1, 0, 0, 1, 1, 1, 1, 1],  # F2
-             [1, 1, 1, 1, 1, 0, 0, 1],  # B1
-             [1, 0, 0, 1, 1, 1, 1, 1]]  # B2
 
     inputs = [7, 11, 13, 15, 19, 21, 23, 29, 31, 33, 35, 37]
     clocks = [12, 16, 18, 22]
@@ -102,24 +76,8 @@ def main():
     running = True
     while running:
         try:
-            shifter.setValues(shifter.view1)
+            shifter.setValues(shifter.views)
             sleep(1.0)
-            shifter.clear()
-
-            shifter.setValues(shifter.view2)
-            sleep(0.3)
-            shifter.clear()
-
-            shifter.setValues(shifter.view3)
-            sleep(0.3)
-            shifter.clear()
-
-            shifter.setValues(shifter.view1)
-            sleep(0.3)
-            shifter.clear()
-
-            shifter.setValues(shifter.view3)
-            sleep(0.3)
             shifter.clear()
 
         except KeyboardInterrupt:

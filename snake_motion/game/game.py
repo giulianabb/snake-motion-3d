@@ -91,7 +91,7 @@ class Game:
         snake_head = self.__snake.get_head_position()
         if self.__fruit.has_been_eaten(snake_head[0], snake_head[1], snake_head[2]):
             # nao sei porque, mas tick nao aparece preenchido aqui
-            self.__tick.increase_velocity()
+            # self.__tick.increase_velocity()
             self.__add_tail = True
             self.__fruit = Fruit()
 
