@@ -24,19 +24,54 @@ class GPIO_Manager:
         sleep(0.0001)
 
     def setFaces(self, faces):
-        for i in range(12):
-            face_number = int((i - i % 2) / 2)
-            face_row = int((i % 2) * 2)
-            if (i == 1 or (i >= 6 and i != 10)):
-                self.__view[i] = np.concatenate((
-                    faces[face_number][face_row],
-                    faces[face_number][face_row + 1]),
-                    axis = None)
-            else:
-                self.__view[i] = np.concatenate((
-                    faces[face_number][face_row + 1],
-                    faces[face_number][face_row]),
-                    axis = None)
+        self.__view[0] = np.concatenate((
+            faces[0][0], faces[0][1]
+        ), axis = None)
+
+        self.__view[1] = np.concatenate((
+            faces[0][3], faces[0][2]
+        ), axis = None)
+
+        self.__view[2] = np.concatenate((
+            faces[1][0], faces[1][1]
+        ), axis = None)
+
+        self.__view[3] = np.concatenate((
+            faces[1][2], faces[1][3]
+        ), axis = None)
+
+        self.__view[4] = np.concatenate((
+            faces[2][0], faces[2][1]
+        ), axis = None)
+
+        self.__view[5] = np.concatenate((
+            faces[2][2], faces[2][3]
+        ), axis = None)
+
+        self.__view[6] = np.concatenate((
+            faces[3][1], faces[3][0]
+        ), axis = None)
+
+        self.__view[7] = np.concatenate((
+            faces[3][3], faces[3][2]
+        ), axis = None)
+
+        self.__view[8] = np.concatenate((
+            faces[4][1], faces[4][0]
+        ), axis = None)
+
+        self.__view[9] = np.concatenate((
+            faces[4][3], faces[4][2]
+        ), axis = None)
+
+        self.__view[10] = np.concatenate((
+            faces[5][0], faces[5][1]
+        ), axis = None)
+
+        self.__view[11] = np.concatenate((
+            faces[5][3], faces[5][2]
+        ), axis = None)
+
         self.showView()
 
     def showView(self):
