@@ -49,7 +49,7 @@ class Snake(SnakePart):
     direction = Direction.NORTH
 
     def __init__(self):
-        super().__init__(2, 0, Face.FRONT)
+        super().__init__(2, 0, Face.TOP)
         nextPart = SnakePart(2, 3, 0)
 
 
