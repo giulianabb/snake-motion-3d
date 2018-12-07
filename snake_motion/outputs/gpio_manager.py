@@ -1,3 +1,8 @@
+import os, sys
+lib_path = os.path.abspath('../game')
+sys.path.insert(0,lib_path)
+
+from snake import Face
 from time import sleep
 import RPi.GPIO as gpio
 import numpy as np
