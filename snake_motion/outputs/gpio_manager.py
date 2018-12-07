@@ -50,7 +50,7 @@ class GPIO_Manager:
         ), axis = None)
 
         self.__view[5] = np.concatenate((
-            faces[Face.BACK][2], np.flip(faces[Face.BACK][3], 0)
+            faces[Face.BACK][3], np.flip(faces[Face.BACK][2], 0)
         ), axis = None)
 
         self.__view[6] = np.concatenate((
