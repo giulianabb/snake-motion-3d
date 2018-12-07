@@ -25,11 +25,11 @@ class GPIO_Manager:
 
     def setFaces(self, faces):
         self.__view[0] = np.concatenate((
-            faces[1][0], np.flip(faces[1][1])
+            faces[1][0], np.flip(faces[1][1], 0)
         ), axis = None)
 
         self.__view[1] = np.concatenate((
-            faces[1][3], np.flip(faces[1][2])
+            faces[1][3], np.flip(faces[1][2], 0)
         ), axis = None)
 
         self.__view[2] = np.concatenate((
