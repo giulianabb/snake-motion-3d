@@ -46,10 +46,10 @@ class Snake(SnakePart):
     """
     Classe que representa a cobra.
     """
-    direction = Direction.NORTH
+    direction = Direction.WEST
 
     def __init__(self):
-        super().__init__(2, 0, Face.TOP)
+        super().__init__(0, 2, Face.TOP)
         nextPart = SnakePart(2, 3, 0)
 
 
