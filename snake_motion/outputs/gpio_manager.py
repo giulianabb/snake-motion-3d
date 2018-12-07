@@ -37,11 +37,12 @@ class GPIO_Manager:
                     faces[face_number][face_row],
                     faces[face_number][face_row + 1]),
                     axis = None)
+        self.showView()
 
-    def setValues(self, view):
+    def showView(self):
         for i in range(8):
             for j in range(12):
-                if(view[j][i] == 0):
+                if(self.__view[j][i] == 0):
                     gpio.output(self.__inputs[j], gpio.LOW)
                 else:
                     gpio.output(self.__inputs[j], gpio.HIGH)
