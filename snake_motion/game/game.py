@@ -83,7 +83,7 @@ class Game:
             snake_tail = self.__snake.get_tail_position()
 
             print(snake_head)
-            self.__board[self.__fruit.face][self.__fruit.col][self.__fruit.lin]
+            self.__board[self.__fruit.face][self.__fruit.col][self.__fruit.lin] = 1
             self.__board[snake_head[0]][snake_head[1]][snake_head[2]] = 1
             print(self.__board)
             self.__gpio_manager.setFaces(self.__board)
