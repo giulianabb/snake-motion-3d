@@ -70,11 +70,11 @@ class GPIO_Manager:
         ), axis = None)
 
         self.__view[10] = np.concatenate((
-            faces[Face.DOWN][0], np.flip(faces[Face.DOWN][1], 0)
+            faces[Face.DOWN][3], np.flip(faces[Face.DOWN][2], 0)
         ), axis = None)
 
         self.__view[11] = np.concatenate((
-            faces[Face.DOWN][3], np.flip(faces[Face.DOWN][2], 0)
+            faces[Face.DOWN][1], np.flip(faces[Face.DOWN][0], 0)
         ), axis = None)
 
         self.showView()
