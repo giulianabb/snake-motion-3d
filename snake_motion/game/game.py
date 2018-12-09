@@ -3,7 +3,7 @@ lib_path = os.path.abspath('../outputs')
 sys.path.insert(0,lib_path)
 
 import numpy as np
-from gpio_manager import GPIO_Manager
+# from gpio_manager import GPIO_Manager
 from mouse import Mouse
 from fruit import Fruit
 from snake import Snake
@@ -22,9 +22,6 @@ class Game:
     __snake = None
     __fruit = None
     __tick = None
-
-    # Animation control components
-    __blink_fruit = True
 
     # Game dinamics components
     __add_tail = False
@@ -56,20 +53,23 @@ class Game:
                          [0, 0, 0, 0],
                          [0, 0, 0, 0]]]
 
-        self.__gpio_manager = GPIO_Manager()
+        # self.__gpio_manager = GPIO_Manager()
         self.__snake = Snake()
         self.__fruit = Fruit()
         self.__mouse = Mouse(self.on_click)
-        self.__tick = Tick(self.on_tick)
+
+        Tick(self)
+
+
+    def setTick(self, tick):
+        self.__tick = tick
+
 
     def on_click(self, isLeft):
         self.__snake.update_direction(isLeft)
 
+
     def on_tick(self, tick_count):
-
-        # Executes block every tick
-        self.__blink_fruit = not self.__blink_fruit
-
         # Executes block every 4 ticks
         if tick_count == 0:
             # Updates snake position (and maybe, adds tail)
@@ -82,26 +82,38 @@ class Game:
             snake_head = self.__snake.get_head_position()
             snake_tail = self.__snake.get_tail_position()
 
-            print(snake_head)
             self.__board[self.__fruit.face][self.__fruit.col][self.__fruit.lin] = 1
             self.__board[snake_head[0]][snake_head[1]][snake_head[2]] = 1
-            print(self.__board)
-            self.__gpio_manager.setFaces(self.__board)
+            self.printBoard()
+            # self.__gpio_manager.setFaces(self.__board)
             self.__board[snake_tail[0]][snake_tail[1]][snake_tail[2]] = 0
-        elif tick_count == 4:
-            self.__gpio_manager.clear()
+        elif tick_count == 2:
+            self.__board[self.__fruit.face][self.__fruit.col][self.__fruit.lin] = 0
+
 
     def update_fruit(self):
         snake_head = self.__snake.get_head_position()
         if self.__fruit.has_been_eaten(snake_head[0], snake_head[1], snake_head[2]):
-            # nao sei porque, mas tick nao aparece preenchido aqui
-            # self.__tick.increase_velocity()
-            print(self)
-            print(self.__tick)
-            print(self.__snake)
+            self.__board[self.__fruit.face][self.__fruit.col][self.__fruit.lin] = 0
+            self.__tick.increase_velocity()
             self.__add_tail = True
             self.__fruit = Fruit()
 
+    def printBoard(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+        for i in range(0, 4):
+            print('            ', end='')
+            print(self.__board[4][i], end='')
+            print('')
+        for i in range(0, 4):
+            for j in range(0, 4):
+                print(self.__board[j][i], end='')
+            print('')
+        for i in range(0, 4):
+            print('            ', end='')
+            print(self.__board[5][i], end='')
+            print('')
 
 def main():
     game = Game()
@@ -110,7 +122,7 @@ def main():
         try:
             1
         except KeyboardInterrupt:
-            self.__gpio_manager.clear()
+            # self.__gpio_manager.clear()
             self.__mouse.finalize()
             running = False
 

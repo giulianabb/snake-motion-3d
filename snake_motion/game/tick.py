@@ -11,8 +11,9 @@ class Tick:
         ms = (dt.days * 24 * 60 * 60 + dt.seconds) * 1000 + dt.microseconds / 1000.0
         return ms
 
-    def __init__(self, on_tick_callback):
-        self.__on_tick = on_tick_callback
+    def __init__(self, game):
+        self.__on_tick = game.on_tick
+        game.setTick(self)
         last_time = datetime.now()
         while True:
             if self.elapsed_ms(last_time) > self.__ms_per_tick:
@@ -22,4 +23,4 @@ class Tick:
 
     def increase_velocity(self):
         if self.__ms_per_tick > 100:
-            self.__ms_per_tick -= 5
+            self.__ms_per_tick -= 10
