@@ -45,7 +45,7 @@ class GPIO_Manager:
             np.flip(faces[Face.FRONT][0], 0), faces[Face.FRONT][1]
         ), axis = None)
 
-        self.__view[4] = np.concatenate((
+        self.__view[7] = np.concatenate((
             np.transpose(faces[Face.LEFT])[1], np.flip(np.transpose(faces[Face.LEFT])[0], 0)
         ), axis = None)
 
@@ -57,7 +57,7 @@ class GPIO_Manager:
             np.flip(faces[Face.FRONT][2], 0), faces[Face.FRONT][3]
         ), axis = None)
 
-        self.__view[7] = np.concatenate((
+        self.__view[4] = np.concatenate((
             np.transpose(faces[Face.LEFT])[3], np.flip(np.transpose(faces[Face.LEFT])[2], 0)
         ), axis = None)
 
