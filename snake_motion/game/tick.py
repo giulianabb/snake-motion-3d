@@ -4,7 +4,7 @@ class Tick:
 
     __on_tick = None
     __tick_count = 0
-    __ms_per_tick = 100
+    __ms_per_tick = 300
 
     def elapsed_ms(self, last_time):
         dt = datetime.now() - last_time
