@@ -3,7 +3,7 @@ lib_path = os.path.abspath('../outputs')
 sys.path.insert(0,lib_path)
 
 import numpy as np
-# from gpio_manager import GPIO_Manager
+from gpio_manager import GPIO_Manager
 from mouse import Mouse
 from fruit import Fruit
 from snake import Snake
@@ -53,7 +53,7 @@ class Game:
                          [0, 0, 0, 0],
                          [0, 0, 0, 0]]]
 
-        # self.__gpio_manager = GPIO_Manager()
+        self.__gpio_manager = GPIO_Manager()
         self.__snake = Snake()
         self.__fruit = Fruit()
         self.__mouse = Mouse(self.on_click)
@@ -85,12 +85,12 @@ class Game:
             self.__board[self.__fruit.face][self.__fruit.col][self.__fruit.lin] = 1
             self.__board[snake_head[0]][snake_head[1]][snake_head[2]] = 1
             self.printBoard()
-            # self.__gpio_manager.setFaces(self.__board)
+            self.__gpio_manager.setFaces(self.__board)
             self.__board[snake_tail[0]][snake_tail[1]][snake_tail[2]] = 0
         elif tick_count == 2:
             self.__board[self.__fruit.face][self.__fruit.col][self.__fruit.lin] = 0
             self.printBoard()
-            # self.__gpio_manager.setFaces(self.__board)
+            self.__gpio_manager.setFaces(self.__board)
 
 
     def update_fruit(self):
@@ -125,7 +125,7 @@ def main():
         try:
             1
         except KeyboardInterrupt:
-            # self.__gpio_manager.clear()
+            self.__gpio_manager.clear()
             self.__mouse.finalize()
             running = False
 
