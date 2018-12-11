@@ -89,6 +89,7 @@ class Game:
             self.__board[snake_tail[0]][snake_tail[1]][snake_tail[2]] = 0
         elif tick_count == 2:
             self.__board[self.__fruit.face][self.__fruit.col][self.__fruit.lin] = 0
+            self.__gpio_manager.setFaces(self.__board)
 
 
     def update_fruit(self):
