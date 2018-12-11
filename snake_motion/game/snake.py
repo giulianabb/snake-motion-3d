@@ -62,9 +62,9 @@ class Snake(SnakePart):
 
     def update_direction(self, isClockwise):
         if (isClockwise):
-            self.direction = (self.direction + 1) % 4
-        else:
             self.direction = (self.direction - 1) % 4
+        else:
+            self.direction = (self.direction + 1) % 4
 
     def move_to_direction(self):
         if self.direction == Direction.NORTH:
