@@ -93,7 +93,6 @@ class Snake(SnakePart):
             self.face = (self.face - 1) % Face.LEFT
             self.col = 3
         else:
-            print('ideia errada aqui')
             self.face = Face.FRONT if self.face == Face.LEFT else Face.BACK
             self.direction = Direction.EAST
             self.col = 3 - self.lin
