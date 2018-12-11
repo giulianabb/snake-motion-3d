@@ -11,5 +11,5 @@ class Fruit:
         self.col = random.randint(0, 3)
         self.face = random.randint(0, 5)
 
-    def has_been_eaten(self, slin, scol, sface):
-        return slin == self.lin and scol == self.col and sface == self.face
+    def has_been_eaten(self, face, col, lin):
+        return lin == self.lin and col == self.col and face == self.face
